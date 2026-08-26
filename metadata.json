@@ -1,0 +1,6 @@
+{
+  "name": "Just Me Ben Ltd - Crowdfunding & Private Equity Consultancy",
+  "description": "Official portal and insight hub for Justmeben LTD (London, UK), specializing in crowdfunding advisory, mezzanine finance, private equity, and real estate investment structuring curated by Marco Beniamino Brioschi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

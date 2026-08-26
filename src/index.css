@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+:root {
+  --brand-color: #2596be;
+  --brand-color-hover: #1d7b9c;
+  --brand-color-dark: #155e78;
+  --brand-color-light: #e8f5fa;
+  --brand-color-glow: rgba(37, 150, 190, 0.35);
+}
+
+@layer utilities {
+  .text-brand {
+    color: #2596be;
+  }
+  .bg-brand {
+    background-color: #2596be;
+  }
+  .bg-brand-dark {
+    background-color: #1a6f8d;
+  }
+  .border-brand {
+    border-color: #2596be;
+  }
+  .hover\:bg-brand:hover {
+    background-color: #2596be;
+  }
+  .hover\:text-brand:hover {
+    color: #2596be;
+  }
+  .focus\:border-brand:focus {
+    border-color: #2596be;
+  }
+  .focus\:ring-brand:focus {
+    --tw-ring-color: #2596be;
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+  }
+  
+  .glass-card-dark {
+    background: rgba(18, 24, 30, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(37, 150, 190, 0.2);
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  .brand-gradient {
+    background: linear-gradient(135deg, #2596be 0%, #155e78 100%);
+  }
+
+  .brand-glow {
+    box-shadow: 0 0 25px rgba(37, 150, 190, 0.35);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: #2596be;
+  color: #ffffff;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(37, 150, 190, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2596be;
+}
+

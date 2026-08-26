@@ -1,0 +1,67 @@
+/* Parallax Performance Optimization */
+
+/* Enable GPU acceleration for parallax elements */
+.parallax-container,
+[class*="parallax"],
+.hero-section,
+.about-section,
+.portfolio-section,
+.strengths-section {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Optimize for performance during scroll */
+.parallax-bg {
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Mobile optimization - reduce parallax intensity */
+@media (max-width: 768px) {
+  .parallax-container {
+    will-change: auto;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Disable all parallax effects for users who prefer reduced motion */
+  [style*="y:"],
+  [style*="scale:"],
+  [style*="opacity:"] {
+    will-change: auto !important;
+    transform: none !important;
+  }
+}
+
+/* Smooth scrolling experience */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent layout shift during parallax animations */
+section {
+  contain: layout style;
+}
+
+/* Optimize parallax layer rendering */
+.parallax-layer {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Large image optimization */
+img[class*="parallax"],
+[class*="hero"] img,
+[class*="strengths"] img {
+  loading: lazy;
+  contain: strict;
+}
