@@ -44,7 +44,7 @@ export const LanguageSwitcher: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full right-0 mt-2 w-48 rounded-2xl bg-gradient-to-br from-neutral-900 to-black border border-white/20 shadow-2xl shadow-black/50 overflow-hidden backdrop-blur-xl z-50"
+            className="absolute top-full right-0 mt-2 w-40 sm:w-48 rounded-2xl bg-gradient-to-br from-neutral-900 to-black border border-white/20 shadow-2xl shadow-black/50 overflow-hidden backdrop-blur-xl z-50"
           >
             <div className="p-2 space-y-1">
               {languages.map((lang) => (

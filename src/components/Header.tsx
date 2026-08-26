@@ -163,6 +163,9 @@ export const Header: React.FC = () => {
                 );
               })}
               <div className="pt-3 border-t border-white/15 flex flex-col gap-2">
+                <div className="px-4 py-2">
+                  <LanguageSwitcher />
+                </div>
                 <a
                   id="mobile-nav-signin"
                   href="https://club.justmebenltd.uk/"
