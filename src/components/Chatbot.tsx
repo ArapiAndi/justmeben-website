@@ -29,10 +29,23 @@ export const Chatbot: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Focus input when opening
+  // Focus input when opening and show welcome on first open
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (isOpen) {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+      // Add welcome message on first open if not already there
+      if (messages.length === 0) {
+        setMessages([
+          {
+            id: "welcome",
+            role: "assistant",
+            content: welcomeMessage,
+            timestamp: Date.now(),
+          },
+        ]);
+      }
     }
   }, [isOpen]);
 
@@ -87,21 +100,8 @@ export const Chatbot: React.FC = () => {
     <>
       {/* Floating Button */}
       <button
-        onClick={() => {
-          setIsOpen(!isOpen);
-          if (!isOpen && messages.length === 0) {
-            // Add welcome message on first open
-            setMessages([
-              {
-                id: "welcome",
-                role: "assistant",
-                content: welcomeMessage,
-                timestamp: Date.now(),
-              },
-            ]);
-          }
-        }}
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#121316] text-white shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 flex items-center justify-center group"
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#121316] text-white shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 flex items-center justify-center group animate-pulse hover:animate-none"
         aria-label="Open chatbot"
       >
         <MessageCircle
@@ -167,7 +167,7 @@ export const Chatbot: React.FC = () => {
                         : "bg-white border border-neutral-200 text-[#121316] rounded-bl-none"
                     }`}
                   >
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                    <p className="text-sm leading-relaxed whitespace-pre-wrap prose prose-sm max-w-none prose-a:text-blue-600 prose-strong:font-semibold">
                       {msg.content}
                     </p>
                     {msg.relatedLinks && msg.relatedLinks.length > 0 && (
