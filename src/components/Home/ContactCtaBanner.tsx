@@ -75,9 +75,9 @@ export const ContactCtaBanner: React.FC = () => {
                 id="cta-banner-headline"
                 className="text-5xl sm:text-6xl md:text-7xl font-normal text-white tracking-tight leading-[1.1]"
               >
-                <span className="block">Ready to</span>
+                <span className="block">Ready to Explore</span>
                 <span className="block bg-gradient-to-r from-[#2596be] via-[#a5e1f7] to-[#2596be] bg-clip-text text-transparent">
-                  Structure Capital?
+                  Advisory Options?
                 </span>
               </h2>
             </motion.div>
@@ -89,7 +89,7 @@ export const ContactCtaBanner: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.25 }}
               className="text-white/85 text-base sm:text-lg font-light max-w-2xl leading-relaxed"
             >
-              Discuss your capital requirements or explore institutional private equity and mezzanine investment opportunities with our expert advisory team.
+              Discuss your capital structuring needs and learn how our team can support your project evaluation and advisory services.
             </motion.p>
 
             <motion.button

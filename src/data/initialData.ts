@@ -138,7 +138,7 @@ Il **Mezzanine Finance** si inserisce esattamente tra il debito bancario senior 
 - **Mezzanine Capital (Just Me Ben Syndication)**: 20-25% del Gross Development Cost
 - **Developer Equity**: 15-20% del Gross Development Cost
 
-Questo assetto consente allo sviluppatore di avviare contemporaneamente più cantieri, diversificando il rischio operativo e aumentando l'IRR sul capitale impiegato.`,
+Questo assetto consente agli sviluppatori di strutturare in modo equilibrato le fonti di finanziamento, distribuendo il rischio operativo tra multiple parti.`,
     coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80',
     category: 'Mezzanine Finance & Debito',
     tags: ['Mezzanine Finance', 'Capital Stack', 'Private Debt', 'Sviluppo Immobiliare'],
@@ -209,8 +209,8 @@ Sempre più family office e investitori professionali preferiscono partecipare a
 
 ### I Vantaggi Chiave:
 - **Discrezione e Controllo Totale**: Possibilità di approvare singolarmente ciascun asset o azienda partecipata.
-- **Minori Costi di Gestione**: Eliminazione delle commissioni di gestione fisse del 2% annuo tipiche dei fondi chiusi.
-- **Coinvestimento Reale**: Sponsor e advisor investono quote rilevanti di capitale proprio al fianco dei partecipanti.`,
+- **Struttura di Gestione Trasparente**: Definizione chiara della governance e della ripartizione delle responsabilità di gestione.
+- **Allineamento di Interessi**: Sponsor e advisor partecipano attivamente al progetto al fianco dei consulenti.`,
     coverImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1400&q=80',
     category: 'Private Equity & Venture',
     tags: ['Private Equity', 'Club Deal', 'Family Office', 'Co-Investimenti'],

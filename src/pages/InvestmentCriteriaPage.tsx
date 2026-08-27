@@ -71,7 +71,7 @@ export const InvestmentCriteriaPage: React.FC = () => {
           className="max-w-3xl space-y-4"
         >
           <span className="text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium">
-            Advisory & Investment Parameters
+            Advisory Assessment Criteria
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal text-neutral-900 tracking-tight leading-[1.12]">
             Target Criteria, Mandate Scope & Deal Underwriting
@@ -284,7 +284,7 @@ export const InvestmentCriteriaPage: React.FC = () => {
                   onClick={openContactModal}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-full bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors shadow-lg cursor-pointer"
                 >
-                  <span>Submit Mandate for Assessment</span>
+                  <span>Request Advisory Consultation</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>

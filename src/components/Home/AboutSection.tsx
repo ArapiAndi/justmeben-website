@@ -116,7 +116,7 @@ export const AboutSection: React.FC = () => {
             </h2>
 
             <p className="text-base sm:text-lg text-neutral-600 font-light leading-relaxed">
-              We empower entrepreneurs and organizations through expert consultancy in crowdfunding, private equity, and venture capital. Our comprehensive approach covers strategic planning, market research, business development, and financial analysis to drive operational excellence.
+              We provide advisory services to entrepreneurs, organizations, and capital sources on strategic planning, capital structuring, and financial analysis. Our comprehensive approach ensures informed decision-making across diverse financing structures and asset classes.
             </p>
 
             <div className="pt-2">

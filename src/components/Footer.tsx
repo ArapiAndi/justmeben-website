@@ -76,13 +76,13 @@ export const Footer: React.FC = () => {
                 onClick={() => handleNav('criteria')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Investment Parameters
+                Advisory Assessment Criteria
               </button>
               <button
                 onClick={() => handleNav('portfolio')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Opportunities & Cases
+                Advisory Cases & Documentation
               </button>
               <button
                 onClick={() => handleNav('blog')}
@@ -156,6 +156,16 @@ export const Footer: React.FC = () => {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Disclaimer Bar */}
+        <div className="py-6 px-4 sm:px-6 my-8 rounded-lg bg-amber-950/30 border border-amber-700/50">
+          <p className="text-xs text-amber-100 leading-relaxed">
+            <strong>⚠️ Disclaimer:</strong> This website provides information and documentation for advisory and informational purposes only.
+            Projects presented involve significant risks including potential loss of capital.
+            Before any decision, consult complete documentation and seek independent professional advice.
+            This site does not constitute investment solicitation or public offering of securities.
+          </p>
         </div>
 
         {/* Bottom Bar: Copyright & Back to top */}

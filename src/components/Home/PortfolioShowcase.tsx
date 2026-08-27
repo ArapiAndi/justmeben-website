@@ -52,13 +52,13 @@ export const PortfolioShowcase: React.FC = () => {
               id="portfolio-headline"
               className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-neutral-900 leading-[1.15]"
             >
-              Selected Investment Opportunities & Advisory Cases
+              Selected Advisory Cases & Project Documentation
             </h2>
           </div>
 
           <div className="lg:col-span-5 flex flex-col items-start lg:items-end justify-between space-y-4">
             <p className="text-sm sm:text-base text-neutral-600 font-light lg:text-right max-w-md">
-              From prime real estate developments to private equity and growth debt syndications, we structure value across every asset class.
+              From real estate advisory to structured capital consulting and financial analysis, we provide guidance across diverse asset classes and project types.
             </p>
             <motion.button
               whileHover={{ scale: 1.03 }}

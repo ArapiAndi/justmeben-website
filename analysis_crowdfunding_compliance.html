@@ -1,0 +1,556 @@
+<title>Analisi Compliance - Comunicazione Non Promozionale</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #1a1a1a;
+    background: #fafaf8;
+  }
+  @media (prefers-color-scheme: dark) {
+    body {
+      background: #121316;
+      color: #e8e8e6;
+    }
+  }
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  h1, h2, h3 {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  h1 { font-size: 32px; margin-top: 0; }
+  h2 { font-size: 24px; }
+  h3 { font-size: 18px; }
+  .summary-box {
+    background: rgba(37, 150, 190, 0.1);
+    border-left: 4px solid #2596be;
+    padding: 20px;
+    margin: 24px 0;
+    border-radius: 4px;
+  }
+  .finding {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+  }
+  @media (prefers-color-scheme: dark) {
+    .finding {
+      background: #1a1a1a;
+      border-color: #333;
+    }
+    .summary-box {
+      background: rgba(37, 150, 190, 0.15);
+    }
+  }
+  .risk-high {
+    border-left: 4px solid #dc2626;
+  }
+  .risk-medium {
+    border-left: 4px solid #f59e0b;
+  }
+  .risk-low {
+    border-left: 4px solid #10b981;
+  }
+  .risk-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .risk-high .risk-badge {
+    background: #fecaca;
+    color: #7f1d1d;
+  }
+  .risk-medium .risk-badge {
+    background: #fed7aa;
+    color: #78350f;
+  }
+  .risk-low .risk-badge {
+    background: #d1fae5;
+    color: #065f46;
+  }
+  @media (prefers-color-scheme: dark) {
+    .risk-high .risk-badge {
+      background: rgba(220, 38, 38, 0.2);
+      color: #fca5a5;
+    }
+    .risk-medium .risk-badge {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fcd34d;
+    }
+    .risk-low .risk-badge {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+    }
+  }
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .comparison > div {
+    padding: 12px;
+    background: rgba(0,0,0,0.02);
+    border-radius: 6px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .comparison > div {
+      background: rgba(255,255,255,0.05);
+    }
+  }
+  .comparison-label {
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+  .comparison-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .bad { color: #dc2626; }
+  .good { color: #059669; }
+  @media (prefers-color-scheme: dark) {
+    .bad { color: #fca5a5; }
+    .good { color: #6ee7b7; }
+  }
+  .section-nav {
+    background: rgba(37, 150, 190, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 24px 0;
+  }
+  .section-nav a {
+    display: block;
+    color: #2596be;
+    text-decoration: none;
+    padding: 8px 0;
+  }
+  .section-nav a:hover {
+    text-decoration: underline;
+  }
+  .cta-list {
+    background: white;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+  @media (prefers-color-scheme: dark) {
+    .cta-list {
+      background: #1a1a1a;
+      border-color: #333;
+    }
+  }
+  .cta-item {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+  @media (prefers-color-scheme: dark) {
+    .cta-item {
+      border-bottom-color: rgba(255,255,255,0.1);
+    }
+  }
+  .cta-item:last-child {
+    border-bottom: none;
+  }
+  .cta-old {
+    text-decoration: line-through;
+    opacity: 0.6;
+    margin-bottom: 8px;
+  }
+  .cta-new {
+    font-weight: 600;
+    color: #059669;
+  }
+  @media (prefers-color-scheme: dark) {
+    .cta-new {
+      color: #6ee7b7;
+    }
+  }
+  .highlight {
+    background: rgba(255, 193, 7, 0.1);
+    padding: 2px 4px;
+    border-radius: 2px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .stat-card {
+    background: rgba(37, 150, 190, 0.1);
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .stat-card .number {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2596be;
+  }
+  .stat-card .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-top: 8px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .stat-card {
+      background: rgba(37, 150, 190, 0.15);
+    }
+  }
+</style>
+
+<div class="container">
+  <h1>🔍 Analisi Compliance — Linguaggio Non Promozionale</h1>
+
+  <div class="summary-box">
+    <strong>Obiettivo:</strong> Rimuovere il linguaggio che enfatizza opportunità di investimento, rendimenti e guadagni, mantenendo un tono informativo e descrittivo.<br><br>
+    <strong>Ambito analizzato:</strong> HeroSection, ContactCtaBanner, InvestmentCriteriaPage, PortfolioShowcase, AboutSection e blog content.<br><br>
+    <strong>Risultato:</strong> 7 elementi critici identificati (rischio ALTO/MEDIO) che richiedono modifica.
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="number">7</div>
+      <div class="label">Elementi Critici</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">3</div>
+      <div class="label">Rischio Alto</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">4</div>
+      <div class="label">Rischio Medio</div>
+    </div>
+  </div>
+
+  <!-- FINDING 1: PORTFOLIO HEADLINE -->
+  <div class="finding risk-high">
+    <div class="risk-badge">🔴 RISCHIO ALTO</div>
+    <h3>1. Portfolio Showcase — Titolo "Investment Opportunities"</h3>
+
+    <p><strong>Posizione:</strong> [PortfolioShowcase.tsx:55] — Portfolio Showcase header</p>
+
+    <p><strong>Testo attuale:</strong></p>
+    <p style="font-style: italic; margin: 12px 0;">"Selected Investment Opportunities & Advisory Cases"</p>
+
+    <p><strong>Perché è critico:</strong></p>
+    <ul style="margin: 12px 0 12px 20px;">
+      <li>La parola <span class="highlight">"Investment Opportunities"</span> configura una sollecitazione diretta</li>
+      <li>Invita implicitamente a "selezionare" opportunità di investimento tra le proposte</li>
+      <li>Enfatizza il valore commerciale/reddituale dei progetti, non la consulenza</li>
+      <li>In un contesto di crowdfunding, questa frase è fortemente promozionale</li>
+    </ul>
+
+    <p><strong>Proposta alternativa:</strong></p>
+    <div class="comparison">
+      <div>
+        <div class="comparison-label">❌ Attuale (Promozionale)</div>
+        <div class="comparison-text bad">Selected Investment Opportunities & Advisory Cases</div>
+      </div>
+      <div>
+        <div class="comparison-label">✓ Proposto (Neutro)</div>
+        <div class="comparison-text good">Selected Advisory Cases & Project Documentation</div>
+      </div>
+    </div>
+
+    <p><strong>Rationale:</strong> "Advisory Cases" esplicitamente descrive il ruolo consultivo; "Project Documentation" rimpiazza "Investment Opportunities" con una descrizione informativa del contenuto.</p>
+  </div>
+
+  <!-- FINDING 2: CONTACT CTA BANNER -->
+  <div class="finding risk-high">
+    <div class="risk-badge">🔴 RISCHIO ALTO</div>
+    <h3>2. Contact CTA Banner — Titolo & Subtesto Promozionali</h3>
+
+    <p><strong>Posizione:</strong> [ContactCtaBanner.tsx:75-92]</p>
+
+    <p><strong>Testo attuale:</strong></p>
+    <ul style="margin: 12px 0 12px 20px;">
+      <li><strong>Titolo:</strong> "Ready to Structure Capital?"</li>
+      <li><strong>Subtesto:</strong> "Discuss your capital requirements or explore <span class="highlight">institutional private equity and mezzanine investment opportunities</span> with our expert advisory team."</li>
+    </ul>
+
+    <p><strong>Perché è critico:</strong></p>
+    <ul style="margin: 12px 0 12px 20px;">
+      <li>La frase "<span class="highlight">explore investment opportunities</span>" è una sollecitazione esplicita all'investimento</li>
+      <li>"Capital requirements" + "investment opportunities" crea una narrative commerciale diretta</li>
+      <li>Il CTA "Get in Touch" diventa un invito a sottoscrivere, non a consultare</li>
+      <li>La combinazione titolo + sottesto posiziona il sito come piattaforma di collocamento di investimenti</li>
+    </ul>
+
+    <p><strong>Proposta alternativa:</strong></p>
+    <div class="comparison">
+      <div>
+        <div class="comparison-label">❌ Attuale (Promozionale)</div>
+        <div class="comparison-text bad">Ready to Structure Capital?<br>Discuss your capital requirements or explore institutional private equity and mezzanine investment opportunities with our expert advisory team.</div>
+      </div>
+      <div>
+        <div class="comparison-label">✓ Proposto (Neutro)</div>
+        <div class="comparison-text good">Ready to Explore Advisory Options?<br>Discuss your capital structuring needs and learn how our team can support your project evaluation and advisory services.</div>
+      </div>
+    </div>
+
+    <p><strong>Rationale:</strong> "Explore Advisory Options" enfatizza la consulenza, non l'investimento; "capital structuring needs" è neutro rispetto a "requirements or opportunities"; "support project evaluation" descrive informazione, non sollecitazione.</p>
+  </div>
+
+  <!-- FINDING 3: PORTFOLIO DESCRIPTION -->
+  <div class="finding risk-high">
+    <div class="risk-badge">🔴 RISCHIO ALTO</div>
+    <h3>3. Portfolio Showcase — Sottotesto Promozionale</h3>
+
+    <p><strong>Posizione:</strong> [PortfolioShowcase.tsx:60-62]</p>
+
+    <p><strong>Testo attuale:</strong></p>
+    <p style="font-style: italic; margin: 12px 0;">"From prime real estate developments to private equity and growth debt syndications, <span class="highlight">we structure value</span> across every asset class."</p>
+
+    <p><strong>Perché è critico:</strong></p>
+    <ul style="margin: 12px 0 12px 20px;">
+      <li>"structure value" implica creazione di profitto/rendimento (focus su valore economico)</li>
+      <li>"syndications" suggerisce collocamento di investimenti a più sottoscrittori</li>
+      <li>Nel contesto di crowdfunding, questa frase posiziona i progetti come opportunità di guadagno</li>
+      <li>Enfatizza il beneficio economico, non l'informazione o la consulenza</li>
+    </ul>
+
+    <p><strong>Proposta alternativa:</strong></p>
+    <div class="comparison">
+      <div>
+        <div class="comparison-label">❌ Attuale (Promozionale)</div>
+        <div class="comparison-text bad">From prime real estate developments to private equity and growth debt syndications, we structure value across every asset class.</div>
+      </div>
+      <div>
+        <div class="comparison-label">✓ Proposto (Neutro)</div>
+        <div class="comparison-text good">From real estate advisory to structured capital consulting and financial analysis, we provide guidance across diverse asset classes and project types.</div>
+      </div>
+    </div>
+
+    <p><strong>Rationale:</strong> "provide guidance" sostituisce "structure value"; "structured capital consulting" descrive il servizio consultivo; "financial analysis" è neutro rispetto a "syndications".</p>
+  </div>
+
+  <!-- FINDING 4: INVESTMENT CRITERIA CTA -->
+  <div class="finding risk-medium">
+    <div class="risk-badge">🟠 RISCHIO MEDIO</div>
+    <h3>4. Investment Criteria Page — CTA "Submit Mandate for Assessment"</h3>
+
+    <p><strong>Posizione:</strong> [InvestmentCriteriaPage.tsx:283-289]</p>
+
+    <p><strong>Testo attuale:</strong></p>
+    <p style="font-style: italic; margin: 12px 0;">Pulsante: "Submit Mandate for Assessment"</p>
+
+    <p><strong>Perché è critico:</strong></p>
+    <ul style="margin: 12px 0 12px 20px;">
+      <li>"Submit Mandate" suggerisce un'azione decisoria verso una sottoscrizione</li>
+      <li>Nel contesto di un calculator di "fit score", invita a inviare il proprio progetto per valutazione di investibilità</li>
+      <li>Il flusso utente è: calcola fit → sottometti mandato → investi</li>
+      <li>Anche se tecnico, il percorso è verso l'azione di investimento</li>
+    </ul>
+
+    <p><strong>Proposta alternativa:</strong></p>
+    <div class="comparison">
+      <div>
+        <div class="comparison-label">❌ Attuale (Direttivo)</div>
+        <div class="comparison-text bad">Submit Mandate for Assessment</div>
+      </div>
+      <div>
+        <div class="comparison-label">✓ Proposto (Consultivo)</div>
+        <div class="comparison-text good">Request Advisory Consultation</div>
+      </div>
+    </div>
+
+    <p><strong>Rationale:</strong> "Request Advisory Consultation" enfatizza il servizio di consulenza, non la sottomissione per investimento; "Consultation" è neutro rispetto a "Mandate".</p>
+  </div>
+
+  <!-- FINDING 5: ABOUT SECTION LANGUAGE -->
+  <div class="finding risk-medium">
+    <div class="risk-badge">🟠 RISCHIO MEDIO</div>
+    <h3>5. About Section — Enfasi su Crowdfunding/PE/VC</h3>
+
+    <p><strong>Posizione:</strong> [AboutSection.tsx:118-120]</p>
+
+    <p><strong>Testo attuale:</strong></p>
+    <p style="font-style: italic; margin: 12px 0;">"We empower entrepreneurs and organizations through expert consultancy in <span class="highlight">crowdfunding, private equity, and venture capital</span>."</p>
+
+    <p><strong>Perché è critico:</strong></p>
+    <ul style="margin: 12px 0 12px 20px;">
+      <li>"empower through... crowdfunding" suggerisce accesso a opportunità di crowdfunding (come investitore)</li>
+      <li>L'accostamento di "private equity" e "venture capital" al nome aziendale crea un'immagine promozionale</li>
+      <li>Nel contesto di un sito di crowdfunding, questa frase enfatizza l'aspetto investitivo</li>
+      <li>Non sono chiari se si tratta di consulenza per fundraiser o per investitori</li>
+    </ul>
+
+    <p><strong>Proposta alternativa:</strong></p>
+    <div class="comparison">
+      <div>
+        <div class="comparison-label">❌ Attuale (Promozionale)</div>
+        <div class="comparison-text bad">We empower entrepreneurs and organizations through expert consultancy in crowdfunding, private equity, and venture capital.</div>
+      </div>
+      <div>
+        <div class="comparison-label">✓ Proposto (Neutro)</div>
+        <div class="comparison-text good">We provide advisory services to entrepreneurs, organizations, and capital sources on strategic planning, capital structuring, and financial analysis.</div>
+      </div>
+    </div>
+
+    <p><strong>Rationale:</strong> "capital sources" è neutro verso investitori e fundraiser; "capital structuring" e "financial analysis" sono servizi generici, non promozionali per crowdfunding specificamente.</p>
+  </div>
+
+  <!-- FINDING 6: CRITERIA PAGE TITLE -->
+  <div class="finding risk-medium">
+    <div class="risk-badge">🟠 RISCHIO MEDIO</div>
+    <h3>6. Investment Criteria Page — Titolo "Investment Parameters"</h3>
+
+    <p><strong>Posizione:</strong> [InvestmentCriteriaPage.tsx:73-80]</p>
+
+    <p><strong>Testo attuale:</strong></p>
+    <ul style="margin: 12px 0 12px 20px;">
+      <li><strong>Badge:</strong> "Advisory & Investment Parameters"</li>
+      <li><strong>Titolo:</strong> "Target Criteria, Mandate Scope & Deal Underwriting"</li>
+      <li><strong>Sottotesto:</strong> "Just Me Ben LTD evaluates property development schemes, <span class="highlight">crowdfunding mandates</span>, and alternative investment opportunities..."</li>
+    </ul>
+
+    <p><strong>Perché è critico:</strong></p>
+    <ul style="margin: 12px 0 12px 20px;">
+      <li>"Advisory & <span class="highlight">Investment</span> Parameters" — "Investment" suggerisce che i parametri sono per investitori</li>
+      <li>"investment opportunities" nella sottotesto è esplicita sollecitazione</li>
+      <li>La combinazione di "Investment Parameters" + calculator di fit score crea un funnel verso l'investimento</li>
+    </ul>
+
+    <p><strong>Proposta alternativa:</strong></p>
+    <div class="comparison">
+      <div>
+        <div class="comparison-label">❌ Attuale</div>
+        <div class="comparison-text bad">Advisory & Investment Parameters</div>
+      </div>
+      <div>
+        <div class="comparison-label">✓ Proposto</div>
+        <div class="comparison-text good">Advisory Assessment Criteria</div>
+      </div>
+    </div>
+
+    <p><strong>Rationale:</strong> "Advisory Assessment Criteria" elimina "Investment" e descriveunicamente il servizio consultivo.</p>
+  </div>
+
+  <!-- FINDING 7: BLOG LANGUAGE -->
+  <div class="finding risk-medium">
+    <div class="risk-badge">🟠 RISCHIO MEDIO</div>
+    <h3>7. Blog Content — Enfasi su Rendimenti e IRR</h3>
+
+    <p><strong>Posizione:</strong> [initialData.ts] — Blog posts su Mezzanine Finance, Private Equity</p>
+
+    <p><strong>Esempi di linguaggio critico:</strong></p>
+    <ul style="margin: 12px 0 12px 20px;">
+      <li>"massimizzare il rendimento <span class="highlight">IRR</span>"</li>
+      <li>"diversificazione del rischio operativo e aumento dell'<span class="highlight">IRR sul capitale impiegato</span>"</li>
+      <li>"Costi di gestione inferiori" — enfatizza vantaggi economici per investitori</li>
+      <li>"capital gains finali"</li>
+    </ul>
+
+    <p><strong>Perché è critico:</strong></p>
+    <ul style="margin: 12px 0 12px 20px;">
+      <li>L'enfasi su IRR, rendimenti e capital gains crea aspettative di profitto</li>
+      <li>Nel contesto di crowdfunding, questo linguaggio invita a investire (non solo a leggere)</li>
+      <li>Anche se tecnico/educativo, il tono è promozionale verso l'asset class</li>
+    </ul>
+
+    <p><strong>Proposta alternativa:</strong></p>
+    <div class="comparison">
+      <div>
+        <div class="comparison-label">❌ Attuale (Rendimento-focalizzato)</div>
+        <div class="comparison-text bad">Aumentare l'IRR sul capitale impiegato</div>
+      </div>
+      <div>
+        <div class="comparison-label">✓ Proposto (Informativo)</div>
+        <div class="comparison-text good">Valutare le caratteristiche strutturali di diversi strumenti finanziari</div>
+      </div>
+    </div>
+
+    <p><strong>Rationale:</strong> Mantenere il contenuto educativo sugli strumenti senza enfatizzare i rendimenti attesi per gli investitori.</p>
+  </div>
+
+  <!-- SECTION: CTA REPLACEMENT LIST -->
+  <h2>📋 Lista CTA da Sostituire</h2>
+
+  <div class="cta-list">
+    <div class="cta-item">
+      <div class="cta-old">"Investi ora" / "Investi" / "Partecipa"</div>
+      <div class="cta-new">✓ "Scopri il progetto" / "Consulta le informazioni"</div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-old">"Cogli l'opportunità"</div>
+      <div class="cta-new">✓ "Approfondisci il progetto" / "Visualizza la documentazione"</div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-old">"Selected Investment Opportunities"</div>
+      <div class="cta-new">✓ "Selected Advisory Cases & Project Documentation"</div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-old">"Explore investment opportunities"</div>
+      <div class="cta-new">✓ "Learn about advisory services" / "Discuss your capital structuring needs"</div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-old">"Submit Mandate for Assessment"</div>
+      <div class="cta-new">✓ "Request Advisory Consultation"</div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-old">"Investment Parameters"</div>
+      <div class="cta-new">✓ "Advisory Assessment Criteria"</div>
+    </div>
+  </div>
+
+  <!-- SECTION: SUMMARY & RECOMMENDATIONS -->
+  <h2>✅ Sintesi Raccomandazioni</h2>
+
+  <div class="summary-box" style="border-left-color: #f59e0b;">
+    <h3 style="margin-top: 0;">Principali Modifiche Prioritarie (implementare subito)</h3>
+    <ol style="margin: 12px 0 12px 20px;">
+      <li><strong>ContactCtaBanner:</strong> Sostituire "explore institutional private equity and mezzanine investment opportunities" con linguaggio consultivo neutro</li>
+      <li><strong>PortfolioShowcase:</strong> Rinominare "Selected Investment Opportunities" in "Selected Advisory Cases & Project Documentation"</li>
+      <li><strong>InvestmentCriteriaPage:</strong> Cambiare CTA da "Submit Mandate" a "Request Advisory Consultation"</li>
+      <li><strong>Portfolio sottotesto:</strong> Sostituire "we structure value" con "we provide guidance"</li>
+      <li><strong>Criteria badge:</strong> Cambiare "Investment Parameters" in "Advisory Assessment Criteria"</li>
+    </ol>
+  </div>
+
+  <div class="summary-box" style="border-left-color: #10b981;">
+    <h3 style="margin-top: 0;">Percorso Utente — Before & After</h3>
+    <p><strong>Attuale (Promozionale):</strong></p>
+    <p style="margin: 8px 0; opacity: 0.7;">Home → Hero "Get in Touch" → Contact Modal (invito a investire) → Portfolio "Investment Opportunities" → Criteria "Submit Mandate"</p>
+
+    <p><strong>Proposto (Consultivo):</strong></p>
+    <p style="margin: 8px 0; opacity: 0.7;">Home → Hero "Get in Touch" → Contact Modal (richiesta di consulenza) → Portfolio "Advisory Cases" → Criteria "Request Advisory Consultation"</p>
+  </div>
+
+  <h2>🛡️ Disclaimer & Risk Management</h2>
+  <p><strong>Elemento mancante:</strong> Il sito non presenta disclaimer visibile sui rischi degli investimenti in crowdfunding.</p>
+  <p><strong>Raccomandazione:</strong> Aggiungere un banner o sezione visibile su homepage/footer che dichiari chiaramente:</p>
+  <ul style="margin: 12px 0 12px 20px;">
+    <li>"I progetti presentati comportano rischi significativi. Consulta la documentazione completa prima di qualsiasi decisione."</li>
+    <li>Link a informazioni sui rischi e conformità normativa (FCA/ECSPR)</li>
+    <li>Chiarimento che il sito è puramente informativo e consultivo, non collocamento di titoli</li>
+  </ul>
+
+  <h2>📝 Note Implementative</h2>
+  <ul style="margin: 12px 0 12px 20px;">
+    <li>Tutte le modifiche vanno applicate ai componenti React (.tsx) e ai dati ([initialData.ts])</li>
+    <li>Verificare che i cambios siano riflessi anche nelle versioni tradotte (se presenti)</li>
+    <li>Testare il percorso utente dopo le modifiche per assicurare coerenza di tono</li>
+    <li>Considerare una revisione legale della comunicazione (compliance con FCA/ECSPR)</li>
+  </ul>
+</div>
