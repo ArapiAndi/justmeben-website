@@ -77,7 +77,7 @@ export const InvestmentCriteriaPage: React.FC = () => {
             Target Criteria, Mandate Scope & Deal Underwriting
           </h1>
           <p className="text-base sm:text-lg text-neutral-600 font-light leading-relaxed pt-2">
-            Just Me Ben LTD evaluates property development schemes, mezzanine financing requests, crowdfunding mandates, and alternative investment opportunities with institutional underwriting rigor.
+            Justmeben LTD evaluates property development schemes, mezzanine financing requests, crowdfunding mandates, and alternative investment opportunities with institutional underwriting rigor.
           </p>
         </motion.div>
       </div>
@@ -122,7 +122,7 @@ export const InvestmentCriteriaPage: React.FC = () => {
                   Check Mandate Alignment in Real-Time
                 </h2>
                 <p className="text-xs sm:text-sm text-neutral-400 font-light">
-                  Input your project metrics to evaluate how closely your asset or capital raising request aligns with Just Me Ben LTD’s core structuring criteria.
+                  Input your project metrics to evaluate how closely your asset or capital raising request aligns with Justmeben LTD’s core structuring criteria.
                 </p>
               </div>
 

@@ -15,7 +15,7 @@ export const AiArticleGeneratorModal: React.FC<AiModalProps> = ({
   onClose,
   onArticleGenerated,
 }) => {
-  const { categories, addArticle } = useApp();
+  const { categories, addArticle, adminToken } = useApp();
 
   // Generator form state
   const [topic, setTopic] = useState('Come strutturare una campagna di Equity Crowdfunding di successo nel 2025');
@@ -50,7 +50,10 @@ export const AiArticleGeneratorModal: React.FC<AiModalProps> = ({
     try {
       const res = await fetch('/api/suggest-topics', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(adminToken && { 'Authorization': `Bearer ${adminToken}` }),
+        },
         body: JSON.stringify({ category, count: 5 }),
       });
       const data = await res.json();
@@ -84,7 +87,10 @@ export const AiArticleGeneratorModal: React.FC<AiModalProps> = ({
 
       const response = await fetch('/api/generate-article', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(adminToken && { 'Authorization': `Bearer ${adminToken}` }),
+        },
         body: JSON.stringify({
           topic,
           category,
@@ -125,8 +131,8 @@ export const AiArticleGeneratorModal: React.FC<AiModalProps> = ({
         readingTime: generated.readingTime || '5 min',
         status: autoPublish ? 'published' : 'draft',
         publishedAt: new Date().toISOString(),
-        metaTitle: generated.metaTitle || `${topic.slice(0, 50)} | Just Me Ben LTD`,
-        metaDescription: generated.metaDescription || generated.excerpt?.slice(0, 155) || 'Approfondimento a cura di Just Me Ben LTD.',
+        metaTitle: generated.metaTitle || `${topic.slice(0, 50)} | Justmeben LTD`,
+        metaDescription: generated.metaDescription || generated.excerpt?.slice(0, 155) || 'Approfondimento a cura di Justmeben LTD.',
         primaryKeywords: Array.isArray(generated.primaryKeywords) ? generated.primaryKeywords : [keywords.split(',')[0]?.trim() || 'Crowdfunding'],
         secondaryKeywords: Array.isArray(generated.secondaryKeywords) ? generated.secondaryKeywords : [],
         keyTakeaways: generated.keyTakeaways || [
@@ -135,7 +141,7 @@ export const AiArticleGeneratorModal: React.FC<AiModalProps> = ({
         ],
         internalLinkSuggestions: generated.internalLinkSuggestions || [
           {
-            anchorText: 'i criteri di investimento e advisory di Just Me Ben LTD',
+            anchorText: 'i criteri di investimento e advisory di Justmeben LTD',
             suggestedPage: '/investment-criteria',
             context: 'Per verificare se la tua iniziativa rispecchia i nostri parametri.',
           },

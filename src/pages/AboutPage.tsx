@@ -18,13 +18,13 @@ export const AboutPage: React.FC = () => {
           className="max-w-3xl space-y-4"
         >
           <span className="text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium">
-            About Just Me Ben LTD
+            About Justmeben LTD
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal text-neutral-900 tracking-tight leading-[1.12]">
             Strategic Capital Solutions in Real Estate, Crowdfunding & Private Equity
           </h1>
           <p className="text-base sm:text-lg text-neutral-600 font-light leading-relaxed pt-2">
-            Just Me Ben LTD is a London-based financial advisory and capital structuring practice led by Marco Beniamino Brioschi. We bridge property developers, ambitious entrepreneurs, and alternative capital providers through customized mezzanine finance, crowdfunding campaign structuring, and private equity syndication.
+            Justmeben LTD is a London-based financial advisory and capital structuring practice led by Marco Beniamino Brioschi. We bridge property developers, ambitious entrepreneurs, and alternative capital providers through customized mezzanine finance, crowdfunding campaign structuring, and private equity syndication.
           </p>
         </motion.div>
       </div>

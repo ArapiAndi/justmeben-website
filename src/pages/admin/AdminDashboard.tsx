@@ -32,6 +32,9 @@ export const AdminDashboard: React.FC = () => {
     deleteArticle,
     duplicateArticle,
     addArticle,
+    archiveArticle,
+    unPublishArticle,
+    restoreArticleFromArchive,
     isAdminAuthenticated,
     loginAdmin,
     logoutAdmin,
@@ -50,6 +53,7 @@ export const AdminDashboard: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | ArticleStatus>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<'date' | 'views' | 'title'>('date');
 
   // Category management modal
   const [showCategoryManager, setShowCategoryManager] = useState(false);
@@ -83,7 +87,7 @@ export const AdminDashboard: React.FC = () => {
       readingTime: '3 min',
       status: 'draft',
       publishedAt: new Date().toISOString(),
-      metaTitle: 'Nuovo Articolo | Just Me Ben LTD',
+      metaTitle: 'Nuovo Articolo | Justmeben LTD',
       metaDescription: 'Descrizione per i motori di ricerca.',
       primaryKeywords: ['Crowdfunding'],
       secondaryKeywords: [],
@@ -109,7 +113,7 @@ export const AdminDashboard: React.FC = () => {
   };
 
   // Filter articles
-  const filteredArticles = articles.filter((art) => {
+  let filteredArticles = articles.filter((art) => {
     const matchesSearch =
       searchQuery === '' ||
       art.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -122,11 +126,23 @@ export const AdminDashboard: React.FC = () => {
     return matchesSearch && matchesStatus && matchesCat;
   });
 
+  // Sort articles
+  filteredArticles = filteredArticles.sort((a, b) => {
+    if (sortBy === 'date') {
+      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    } else if (sortBy === 'views') {
+      return (b.viewsCount || 0) - (a.viewsCount || 0);
+    } else {
+      return a.title.localeCompare(b.title, 'it');
+    }
+  });
+
   // Calculate metrics
   const totalViews = articles.reduce((acc, a) => acc + (a.viewsCount || 0), 0);
   const publishedCount = articles.filter((a) => a.status === 'published').length;
   const draftCount = articles.filter((a) => a.status === 'draft').length;
   const scheduledCount = articles.filter((a) => a.status === 'scheduled').length;
+  const archivedCount = articles.filter((a) => a.status === 'archived').length;
 
   // IF NOT LOGGED IN -> Show Login Screen
   if (!isAdminAuthenticated) {
@@ -274,10 +290,10 @@ export const AdminDashboard: React.FC = () => {
 
           <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
             {/* Status tabs */}
-            <div className="flex bg-neutral-100 p-1 rounded-xl text-xs font-medium">
+            <div className="flex bg-neutral-100 p-1 rounded-xl text-xs font-medium overflow-x-auto">
               <button
                 onClick={() => setStatusFilter('all')}
-                className={`px-3 py-1.5 rounded-lg transition-colors ${
+                className={`px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
                   statusFilter === 'all' ? 'bg-white text-neutral-900 shadow-xs' : 'text-neutral-600'
                 }`}
               >
@@ -285,7 +301,7 @@ export const AdminDashboard: React.FC = () => {
               </button>
               <button
                 onClick={() => setStatusFilter('published')}
-                className={`px-3 py-1.5 rounded-lg transition-colors ${
+                className={`px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
                   statusFilter === 'published' ? 'bg-white text-emerald-700 shadow-xs font-semibold' : 'text-neutral-600'
                 }`}
               >
@@ -293,11 +309,27 @@ export const AdminDashboard: React.FC = () => {
               </button>
               <button
                 onClick={() => setStatusFilter('draft')}
-                className={`px-3 py-1.5 rounded-lg transition-colors ${
+                className={`px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
                   statusFilter === 'draft' ? 'bg-white text-amber-700 shadow-xs font-semibold' : 'text-neutral-600'
                 }`}
               >
                 Bozze ({draftCount})
+              </button>
+              <button
+                onClick={() => setStatusFilter('scheduled')}
+                className={`px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
+                  statusFilter === 'scheduled' ? 'bg-white text-blue-700 shadow-xs font-semibold' : 'text-neutral-600'
+                }`}
+              >
+                Programmati ({scheduledCount})
+              </button>
+              <button
+                onClick={() => setStatusFilter('archived')}
+                className={`px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap ${
+                  statusFilter === 'archived' ? 'bg-white text-neutral-700 shadow-xs font-semibold' : 'text-neutral-600'
+                }`}
+              >
+                Archiviati ({archivedCount})
               </button>
             </div>
 
@@ -313,6 +345,17 @@ export const AdminDashboard: React.FC = () => {
                   {c.name}
                 </option>
               ))}
+            </select>
+
+            {/* Sort select */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as 'date' | 'views' | 'title')}
+              className="px-3 py-1.5 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-medium text-neutral-700"
+            >
+              <option value="date">Ordina per data</option>
+              <option value="views">Ordina per visualizzazioni</option>
+              <option value="title">Ordina per titolo</option>
             </select>
           </div>
         </div>
@@ -366,15 +409,17 @@ export const AdminDashboard: React.FC = () => {
                     {/* Status */}
                     <td className="py-4 px-4">
                       <span
-                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-semibold ${
+                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-semibold text-xs ${
                           art.status === 'published'
                             ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                             : art.status === 'scheduled'
                             ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                            : art.status === 'archived'
+                            ? 'bg-gray-50 text-gray-700 border border-gray-200'
                             : 'bg-amber-50 text-amber-700 border border-amber-200'
                         }`}
                       >
-                        {art.status === 'published' ? '● Pubblicato' : art.status === 'scheduled' ? '◷ Programmato' : '○ Bozza'}
+                        {art.status === 'published' ? '● Pubblicato' : art.status === 'scheduled' ? '◷ Programmato' : art.status === 'archived' ? '🗂️ Archiviato' : '○ Bozza'}
                       </span>
                     </td>
 
@@ -390,14 +435,16 @@ export const AdminDashboard: React.FC = () => {
 
                     {/* Action buttons */}
                     <td className="py-4 px-6 text-right">
-                      <div className="flex items-center justify-end gap-1.5">
-                        <button
-                          onClick={() => navigateToArticle(art.slug)}
-                          title="Visualizza articolo pubblico"
-                          className="p-2 rounded-lg hover:bg-neutral-200 text-neutral-600 transition-colors"
-                        >
-                          <Eye className="w-4 h-4" />
-                        </button>
+                      <div className="flex items-center justify-end gap-1.5 flex-wrap">
+                        {art.status !== 'archived' && (
+                          <button
+                            onClick={() => navigateToArticle(art.slug)}
+                            title="Visualizza articolo pubblico"
+                            className="p-2 rounded-lg hover:bg-neutral-200 text-neutral-600 transition-colors"
+                          >
+                            <Eye className="w-4 h-4" />
+                          </button>
+                        )}
 
                         <button
                           onClick={() => handleEdit(art.id)}
@@ -407,9 +454,49 @@ export const AdminDashboard: React.FC = () => {
                           <Edit3 className="w-4 h-4" />
                         </button>
 
+                        {art.status === 'published' && (
+                          <button
+                            onClick={() => {
+                              if (confirm(`Annullare la pubblicazione di "${art.title}"?`)) {
+                                unPublishArticle(art.id);
+                              }
+                            }}
+                            title="Annulla pubblicazione"
+                            className="p-2 rounded-lg hover:bg-orange-100 text-orange-600 transition-colors"
+                          >
+                            <Unlock className="w-4 h-4" />
+                          </button>
+                        )}
+
+                        {art.status !== 'archived' && (
+                          <button
+                            onClick={() => {
+                              if (confirm(`Archiviare "${art.title}"?`)) {
+                                archiveArticle(art.id);
+                              }
+                            }}
+                            title="Archivia articolo"
+                            className="p-2 rounded-lg hover:bg-gray-200 text-gray-600 transition-colors"
+                          >
+                            <Layers className="w-4 h-4" />
+                          </button>
+                        )}
+
+                        {art.status === 'archived' && (
+                          <button
+                            onClick={() => {
+                              restoreArticleFromArchive(art.id);
+                            }}
+                            title="Ripristina da archivio"
+                            className="p-2 rounded-lg hover:bg-emerald-100 text-emerald-600 transition-colors"
+                          >
+                            <CheckCircle2 className="w-4 h-4" />
+                          </button>
+                        )}
+
                         <button
                           onClick={() => handleDuplicate(art.id)}
-                          title="Duplica bozza"
+                          title="Duplica articolo"
                           className="p-2 rounded-lg hover:bg-neutral-200 text-neutral-600 transition-colors"
                         >
                           <Copy className="w-4 h-4" />

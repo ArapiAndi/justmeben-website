@@ -77,8 +77,8 @@ I dati storici evidenziano che oltre l'85% delle campagne di successo raccoglie 
 
 ---
 
-## 3. L'Approccio di Just Me Ben LTD
-In Just Me Ben LTD affianchiamo promotori e sviluppatori nell'intero ciclo di vita: dalla validazione economica del cantiere alla selezione della piattaforma idonea, fino alla gestione delle relazioni con gli investitori post-chiusura.`,
+## 3. L'Approccio di Justmeben LTD
+In Justmeben LTD affianchiamo promotori e sviluppatori nell'intero ciclo di vita: dalla validazione economica del cantiere alla selezione della piattaforma idonea, fino alla gestione delle relazioni con gli investitori post-chiusura.`,
     coverImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80',
     category: 'Crowdfunding Advisory',
     tags: ['Crowdfunding', 'Real Estate', 'Capital Raising', 'FCA Compliance', 'ECSPR'],
@@ -92,8 +92,8 @@ In Just Me Ben LTD affianchiamo promotori e sviluppatori nell'intero ciclo di vi
     publishedAt: '2025-02-18T10:00:00.000Z',
     createdAt: '2025-02-18T09:30:00.000Z',
     updatedAt: '2025-02-18T10:00:00.000Z',
-    metaTitle: 'Guida al Crowdfunding Immobiliare & Advisory | Just Me Ben LTD',
-    metaDescription: 'Analisi strategica su come strutturare una campagna di crowdfunding immobiliare conforme ed efficace secondo Just Me Ben LTD.',
+    metaTitle: 'Guida al Crowdfunding Immobiliare & Advisory | Justmeben LTD',
+    metaDescription: 'Analisi strategica su come strutturare una campagna di crowdfunding immobiliare conforme ed efficace secondo Justmeben LTD.',
     primaryKeywords: ['Crowdfunding Immobiliare', 'Capital Raising', 'Real Estate Advisory'],
     secondaryKeywords: ['Mezzanine Debt', 'Property Investment', 'FCA Regulated'],
     keyTakeaways: [
@@ -152,7 +152,7 @@ Questo assetto consente agli sviluppatori di strutturare in modo equilibrato le 
     publishedAt: '2025-02-10T14:30:00.000Z',
     createdAt: '2025-02-10T11:00:00.000Z',
     updatedAt: '2025-02-10T14:30:00.000Z',
-    metaTitle: 'Mezzanine Finance nello Sviluppo Immobiliare | Just Me Ben LTD',
+    metaTitle: 'Mezzanine Finance nello Sviluppo Immobiliare | Justmeben LTD',
     metaDescription: 'Analisi sul debito mezzanino e ottimizzazione del capital stack per sviluppatori e investitori.',
     primaryKeywords: ['Mezzanine Finance', 'Capital Stack', 'Debito Mezzanino'],
     secondaryKeywords: ['Sviluppo Immobiliare', 'Funding Gap', 'LTV'],
@@ -174,7 +174,7 @@ Ogni operazione di investimento o raccolta di capitale deve superare un processo
 
 ---
 
-## I 4 Pilastri del Protocollo Just Me Ben LTD
+## I 4 Pilastri del Protocollo Justmeben LTD
 1. **Due Diligence Urbanistica e Tecnica**: Verifica titoli edilizi, vincoli paesaggistici, bonifiche e perizie con tecnici abilitati.
 2. **Stress Testing Finanziario**: Simulazione di scenari avversi (incremento tassi d'interesse +200bps, ritardo vendite +6 mesi, extracosti di costruzione +15%).
 3. **Analisi del Mercato Locale**: Valutazione dei prezzi di vendita al mq effettivi (comparabili registrati) e tempo medio di assorbimento (absorption rate).
@@ -192,7 +192,7 @@ Ogni operazione di investimento o raccolta di capitale deve superare un processo
     publishedAt: '2025-01-28T09:00:00.000Z',
     createdAt: '2025-01-28T08:00:00.000Z',
     updatedAt: '2025-01-28T09:00:00.000Z',
-    metaTitle: 'Underwriting e Due Diligence Immobiliare | Just Me Ben LTD',
+    metaTitle: 'Underwriting e Due Diligence Immobiliare | Justmeben LTD',
     metaDescription: 'La metodologia di valutazione e controllo dei rischi nelle operazioni immobiliari e di private equity.',
     primaryKeywords: ['Underwriting Immobiliare', 'Due Diligence', 'Risk Management'],
     secondaryKeywords: ['Stress Testing', 'Valutazione GDV', 'Real Estate'],
@@ -224,7 +224,7 @@ Sempre più family office e investitori professionali preferiscono partecipare a
     publishedAt: '2025-01-15T11:00:00.000Z',
     createdAt: '2025-01-15T10:00:00.000Z',
     updatedAt: '2025-01-15T11:00:00.000Z',
-    metaTitle: 'Private Equity e Club Deal Immobiliari | Just Me Ben LTD',
+    metaTitle: 'Private Equity e Club Deal Immobiliari | Justmeben LTD',
     metaDescription: 'La convergenza tra family office, crowdfunding e club deal nell’allocazione di capitale strategico.',
     primaryKeywords: ['Private Equity', 'Club Deal', 'Family Office'],
     secondaryKeywords: ['Co-Investimento', 'Alternative Investments'],
@@ -239,7 +239,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     name: 'Belgravia Luxury Residential Collection',
     logoText: 'BELGRAVIA RESIDENCES',
     tagline: 'Prime Central London Residential Redevelopment',
-    description: 'High-end residential conversion of prime period townhouses into bespoke luxury apartments. Just Me Ben LTD structured the mezzanine capital stack and coordinated cornerstone equity syndication.',
+    description: 'High-end residential conversion of prime period townhouses into bespoke luxury apartments. Justmeben LTD structured the mezzanine capital stack and coordinated cornerstone equity syndication.',
     sector: 'Real Estate & Property Development',
     investmentType: 'Mezzanine Debt & Equity Syndication',
     year: '2023 - 2024',

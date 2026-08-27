@@ -47,7 +47,7 @@ export const Header: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Brand Logo - Just Me Ben LTD */}
+        {/* Brand Logo - Justmeben LTD */}
         <button
           id="brand-logo-btn"
           onClick={() => handleNavClick('home')}

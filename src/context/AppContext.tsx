@@ -29,6 +29,7 @@ interface AppContextType {
 
   // Admin Auth & Modal
   isAdminAuthenticated: boolean;
+  adminToken: string | null;
   loginAdmin: (password: string) => boolean;
   logoutAdmin: () => void;
   isContactModalOpen: boolean;
@@ -47,6 +48,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 const LOCAL_STORAGE_ARTICLES_KEY = 'siwa_capital_articles_v1';
 const LOCAL_STORAGE_CATEGORIES_KEY = 'siwa_capital_categories_v1';
 const LOCAL_STORAGE_AUTH_KEY = 'siwa_capital_admin_auth_v1';
+const LOCAL_STORAGE_TOKEN_KEY = 'siwa_capital_admin_token_v1';
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState<string>('home');
@@ -90,6 +92,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
+  // Initialize Admin Token state
+  const [adminToken, setAdminToken] = useState<string | null>(() => {
+    try {
+      return localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
+    } catch {
+      return null;
+    }
+  });
+
   // Sync to localStorage
   useEffect(() => {
     try {
@@ -114,6 +125,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       console.error('Error saving auth to localStorage', e);
     }
   }, [isAdminAuthenticated]);
+
+  useEffect(() => {
+    try {
+      if (adminToken) {
+        localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, adminToken);
+      } else {
+        localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
+      }
+    } catch (e) {
+      console.error('Error saving token to localStorage', e);
+    }
+  }, [adminToken]);
 
   // Actions
   const navigateToArticle = (slug: string) => {
@@ -182,6 +205,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     );
   };
 
+  const archiveArticle = (id: string) => {
+    setArticles((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, status: 'archived' as const, updatedAt: new Date().toISOString() } : a))
+    );
+  };
+
+  const unPublishArticle = (id: string) => {
+    setArticles((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, status: 'draft' as const, updatedAt: new Date().toISOString() } : a))
+    );
+  };
+
+  const restoreArticleFromArchive = (id: string) => {
+    setArticles((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, status: 'draft' as const, updatedAt: new Date().toISOString() } : a))
+    );
+  };
+
   const addCategory = (data: Omit<BlogCategory, 'id' | 'articleCount'>) => {
     const newCat: BlogCategory = {
       ...data,
@@ -197,15 +238,32 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const loginAdmin = (password: string) => {
     // Allows demo login with passcode 'siwa2025' or 'admin'
-    if (password === 'siwa2025' || password === 'admin' || password === 'demo') {
-      setIsAdminAuthenticated(true);
-      return true;
+    const validPasswords = ['siwa2025', 'admin', 'demo'];
+    if (!validPasswords.includes(password)) {
+      return false;
     }
-    return false;
+
+    // Retrieve token from server
+    fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.token) {
+          setAdminToken(data.token);
+        }
+      })
+      .catch((e) => console.warn('Token fetch fallback', e));
+
+    setIsAdminAuthenticated(true);
+    return true;
   };
 
   const logoutAdmin = () => {
     setIsAdminAuthenticated(false);
+    setAdminToken(null);
   };
 
   const openContactModal = () => setIsContactModalOpen(true);
@@ -227,9 +285,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         duplicateArticle,
         getArticleBySlug,
         incrementViews,
+        archiveArticle,
+        unPublishArticle,
+        restoreArticleFromArchive,
         addCategory,
         deleteCategory,
         isAdminAuthenticated,
+        adminToken,
         loginAdmin,
         logoutAdmin,
         isContactModalOpen,

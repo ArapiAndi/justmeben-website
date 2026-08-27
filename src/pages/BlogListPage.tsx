@@ -45,7 +45,7 @@ export const BlogListPage: React.FC = () => {
           <div className="max-w-2xl space-y-3">
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-neutral-500">
               <BookOpen className="w-3.5 h-3.5 text-neutral-900" />
-              <span>Just Me Ben LTD Advisory Insights</span>
+              <span>Justmeben LTD Advisory Insights</span>
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal text-neutral-900 tracking-tight leading-[1.12]">
               Advisory, Real Estate & Crowdfunding Insights

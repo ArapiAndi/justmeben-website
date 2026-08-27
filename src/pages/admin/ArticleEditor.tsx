@@ -37,6 +37,7 @@ export const ArticleEditor: React.FC = () => {
     deleteArticle,
     setCurrentPage,
     navigateToArticle,
+    adminToken,
   } = useApp();
 
   const article = articles.find((a) => a.id === editingArticleId);
@@ -63,6 +64,8 @@ export const ArticleEditor: React.FC = () => {
   const [previewMode, setPreviewMode] = useState<'split' | 'edit-only' | 'preview-only'>('split');
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [saveSuccessNotice, setSaveSuccessNotice] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [saveErrorNotice, setSaveErrorNotice] = useState('');
 
   // Curated cover image presets
   const imagePresets = [
@@ -133,7 +136,41 @@ export const ArticleEditor: React.FC = () => {
     }, 50);
   };
 
+  const validateForm = (): Record<string, string> => {
+    const errors: Record<string, string> = {};
+
+    if (!title.trim()) {
+      errors.title = 'Titolo obbligatorio';
+    }
+
+    if (!slug.trim()) {
+      errors.slug = 'Slug obbligatorio';
+    } else if (!/^[a-z0-9-]+$/.test(slug)) {
+      errors.slug = 'Slug contiene caratteri non validi';
+    } else {
+      const duplicateSlug = articles.find((a) => a.id !== article.id && a.slug === slug);
+      if (duplicateSlug) {
+        errors.slug = 'Questo slug è già utilizzato';
+      }
+    }
+
+    if (!content.trim()) {
+      errors.content = 'Contenuto obbligatorio';
+    }
+
+    return errors;
+  };
+
   const handleSave = (targetStatus?: ArticleStatus) => {
+    const errors = validateForm();
+    setValidationErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      setSaveErrorNotice('Correggi gli errori prima di salvare');
+      setTimeout(() => setSaveErrorNotice(''), 3000);
+      return;
+    }
+
     const finalStatus = targetStatus || status;
     updateArticle(article.id, {
       title,
@@ -163,15 +200,20 @@ export const ArticleEditor: React.FC = () => {
 
     setSaveSuccessNotice(true);
     setTimeout(() => setSaveSuccessNotice(false), 2500);
+    setValidationErrors({});
   };
 
   // AI Copilot Actions
   const handleAiOptimizeSeo = async () => {
     setIsAiLoading(true);
     try {
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (adminToken) {
+        headers['Authorization'] = 'Bearer ' + adminToken;
+      }
       const res = await fetch('/api/generate-seo', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ title, content, category }),
       });
       const data = await res.json();
@@ -180,8 +222,8 @@ export const ArticleEditor: React.FC = () => {
       if (data.keywords && Array.isArray(data.keywords)) setPrimaryKeywords(data.keywords);
     } catch (e) {
       console.warn('AI SEO fallback', e);
-      setMetaTitle(`${title.slice(0, 50)} | Just Me Ben LTD`);
-      setMetaDescription(`${excerpt.slice(0, 150)}...`);
+      setMetaTitle(title.slice(0, 50) + ' | Justmeben LTD');
+      setMetaDescription(excerpt.slice(0, 150) + '...');
     } finally {
       setIsAiLoading(false);
     }
@@ -190,9 +232,13 @@ export const ArticleEditor: React.FC = () => {
   const handleAiExpandSection = async () => {
     setIsAiLoading(true);
     try {
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (adminToken) {
+        headers['Authorization'] = 'Bearer ' + adminToken;
+      }
       const res = await fetch('/api/expand-section', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ sectionTitle: title, context: excerpt }),
       });
       const data = await res.json();
@@ -201,10 +247,8 @@ export const ArticleEditor: React.FC = () => {
       }
     } catch (e) {
       console.warn('AI Expand fallback', e);
-      handleContentChange(
-        content +
-          '\n\n## 4. Nuove Opportunità di Scalabilità\nL’implementazione di processi digitalizzati consente di ridurre i costi operativi e incrementare il valore dell’EBITDA a medio termine.'
-      );
+      const fallbackContent = '\n\n## 4. Nuove Opportunita\nImplementazione di processi digitalizzati consente di ridurre i costi operativi.';
+      handleContentChange(content + fallbackContent);
     } finally {
       setIsAiLoading(false);
     }
@@ -260,6 +304,11 @@ export const ArticleEditor: React.FC = () => {
                 <CheckCircle2 className="w-3.5 h-3.5" /> Salvato con successo!
               </span>
             )}
+            {saveErrorNotice && (
+              <span className="text-xs text-rose-600 font-medium flex items-center gap-1 animate-pulse">
+                <AlertCircle className="w-3.5 h-3.5" /> {saveErrorNotice}
+              </span>
+            )}
 
             <button
               onClick={() => navigateToArticle(article.slug)}
@@ -287,7 +336,8 @@ export const ArticleEditor: React.FC = () => {
 
             <button
               onClick={() => handleSave()}
-              className="flex items-center gap-1.5 px-5 py-2 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold shadow-md transition-all cursor-pointer"
+              disabled={Object.keys(validationErrors).length > 0}
+              className="flex items-center gap-1.5 px-5 py-2 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold shadow-md transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Save className="w-3.5 h-3.5" />
               <span>Salva Modifiche</span>
@@ -310,10 +360,22 @@ export const ArticleEditor: React.FC = () => {
                 <input
                   type="text"
                   value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                    if (validationErrors.title) {
+                      setValidationErrors({ ...validationErrors, title: '' });
+                    }
+                  }}
                   placeholder="Titolo accattivante per SEO e lettori..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-base font-semibold text-neutral-900 focus:outline-none focus:border-neutral-400"
+                  className={`w-full px-4 py-2.5 rounded-xl bg-neutral-50 border text-base font-semibold text-neutral-900 focus:outline-none transition-colors ${
+                    validationErrors.title ? 'border-rose-300 focus:border-rose-400' : 'border-neutral-200 focus:border-neutral-400'
+                  }`}
                 />
+                {validationErrors.title && (
+                  <p className="text-xs text-rose-600 mt-1 flex items-center gap-1">
+                    <AlertCircle className="w-3 h-3" /> {validationErrors.title}
+                  </p>
+                )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -324,10 +386,22 @@ export const ArticleEditor: React.FC = () => {
                   <input
                     type="text"
                     value={slug}
-                    onChange={(e) => setSlug(e.target.value)}
+                    onChange={(e) => {
+                      setSlug(e.target.value);
+                      if (validationErrors.slug) {
+                        setValidationErrors({ ...validationErrors, slug: '' });
+                      }
+                    }}
                     placeholder="es. visibilita-online-b2b"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-mono text-neutral-700 focus:outline-none focus:border-neutral-400"
+                    className={`w-full px-3.5 py-2 rounded-xl bg-neutral-50 border text-xs font-mono text-neutral-700 focus:outline-none transition-colors ${
+                      validationErrors.slug ? 'border-rose-300 focus:border-rose-400' : 'border-neutral-200 focus:border-neutral-400'
+                    }`}
                   />
+                  {validationErrors.slug && (
+                    <p className="text-xs text-rose-600 mt-1 flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3" /> {validationErrors.slug}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -393,7 +467,15 @@ export const ArticleEditor: React.FC = () => {
             </div>
 
             {/* Markdown Editor Box */}
-            <div className="bg-white rounded-3xl border border-neutral-200 shadow-sm overflow-hidden flex flex-col">
+            <div className={`bg-white rounded-3xl border shadow-sm overflow-hidden flex flex-col transition-colors ${
+              validationErrors.content ? 'border-rose-300' : 'border-neutral-200'
+            }`}>
+              {validationErrors.content && (
+                <div className="bg-rose-50 border-b border-rose-200 px-4 py-2 flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-rose-600" />
+                  <p className="text-xs text-rose-600 font-medium">{validationErrors.content}</p>
+                </div>
+              )}
               {/* Formatting Toolbar */}
               <div className="p-3 bg-neutral-50 border-b border-neutral-200 flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center gap-1">
@@ -496,9 +578,16 @@ export const ArticleEditor: React.FC = () => {
                     <textarea
                       id="markdown-textarea"
                       value={content}
-                      onChange={(e) => handleContentChange(e.target.value)}
+                      onChange={(e) => {
+                        handleContentChange(e.target.value);
+                        if (validationErrors.content) {
+                          setValidationErrors({ ...validationErrors, content: '' });
+                        }
+                      }}
                       placeholder="Scrivi il contenuto dell'articolo in formato Markdown..."
-                      className="w-full h-full min-h-[400px] bg-transparent text-sm font-mono text-neutral-800 focus:outline-none resize-none leading-relaxed"
+                      className={`w-full h-full min-h-[400px] bg-transparent text-sm font-mono text-neutral-800 focus:outline-none resize-none leading-relaxed ${
+                        validationErrors.content ? 'ring-2 ring-rose-300 ring-inset' : ''
+                      }`}
                     />
                   </div>
                 )}

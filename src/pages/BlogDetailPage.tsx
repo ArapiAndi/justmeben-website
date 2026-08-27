@@ -310,7 +310,7 @@ export const BlogDetailPage: React.FC = () => {
           <div className="my-12 p-6 sm:p-8 rounded-3xl bg-neutral-900 text-white space-y-4 shadow-xl">
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-cyan-300">
               <Link2 className="w-4 h-4" />
-              <span>Approfondimenti & Risorse Just Me Ben LTD</span>
+              <span>Approfondimenti & Risorse Justmeben LTD</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
               {article.internalLinkSuggestions.map((link, idx) => (
