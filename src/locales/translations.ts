@@ -103,6 +103,19 @@ export const translations = {
       copyright: '© 2025 JUSTMEBEN LTD. All Rights Reserved. Incorporated in England & Wales (Company No. 15780010).',
       backToTop: 'Back to top',
     },
+
+    // Chatbot
+    chatbot: {
+      title: 'Chat Assistant',
+      subtitle: 'Powered by AI',
+      placeholder: 'Type a message...',
+      thinking: 'Thinking...',
+      welcome: 'Hello! I\'m the JUSTMEBEN LTD assistant. How can I help you with information about real estate crowdfunding, private equity, or financial advisory?',
+      startConversation: 'Start a conversation...',
+      clearHistory: 'Clear history',
+      poweredBy: 'Powered by Google Gemini AI',
+      error: 'I apologize, an error occurred. Please try again later.',
+    },
   },
 
   it: {
@@ -208,6 +221,19 @@ export const translations = {
       company: 'Company No. 15780010 • Global Professionals Network',
       copyright: '© 2025 JUSTMEBEN LTD. Tutti i Diritti Riservati. Incorporata in Inghilterra e Galles (Company No. 15780010).',
       backToTop: 'Torna in alto',
+    },
+
+    // Chatbot
+    chatbot: {
+      title: 'Chat Assistant',
+      subtitle: 'Powered by AI',
+      placeholder: 'Scrivi un messaggio...',
+      thinking: 'Sto riflettendo...',
+      welcome: 'Ciao! Sono l\'assistente di JUSTMEBEN LTD. Come posso aiutarti con informazioni su crowdfunding immobiliare, private equity, o advisory finanziario?',
+      startConversation: 'Inizia una conversazione...',
+      clearHistory: 'Cancella cronologia',
+      poweredBy: 'Powered by Google Gemini AI',
+      error: 'Mi scuso, si è verificato un errore. Riprova più tardi.',
     },
   },
 
@@ -315,6 +341,19 @@ export const translations = {
       copyright: '© 2025 JUSTMEBEN LTD. Todos los Derechos Reservados. Constituida en Inglaterra y Gales (Company No. 15780010).',
       backToTop: 'Volver al inicio',
     },
+
+    // Chatbot
+    chatbot: {
+      title: 'Chat Assistant',
+      subtitle: 'Powered by AI',
+      placeholder: 'Escribe un mensaje...',
+      thinking: 'Pensando...',
+      welcome: 'Hola! Soy el asistente de JUSTMEBEN LTD. ¿Cómo puedo ayudarte con información sobre crowdfunding inmobiliario, private equity o asesoramiento financiero?',
+      startConversation: 'Inicia una conversación...',
+      clearHistory: 'Limpiar historial',
+      poweredBy: 'Powered by Google Gemini AI',
+      error: 'Disculpa, ocurrió un error. Por favor, intenta más tarde.',
+    },
   },
 
   fr: {
@@ -421,6 +460,19 @@ export const translations = {
       copyright: '© 2025 JUSTMEBEN LTD. Tous les Droits Réservés. Constituée en Angleterre et au Pays de Galles (Company No. 15780010).',
       backToTop: 'Retour au début',
     },
+
+    // Chatbot
+    chatbot: {
+      title: 'Chat Assistant',
+      subtitle: 'Powered by AI',
+      placeholder: 'Écrivez un message...',
+      thinking: 'Réflexion...',
+      welcome: 'Bonjour! Je suis l\'assistant de JUSTMEBEN LTD. Comment puis-je vous aider avec des informations sur le crowdfunding immobilier, le private equity ou le conseil financier?',
+      startConversation: 'Commencer une conversation...',
+      clearHistory: 'Effacer l\'historique',
+      poweredBy: 'Powered by Google Gemini AI',
+      error: 'Je m\'excuse, une erreur s\'est produite. Veuillez réessayer plus tard.',
+    },
   },
 
   de: {
@@ -526,6 +578,19 @@ export const translations = {
       company: 'Company No. 15780010 • Global Professionals Network',
       copyright: '© 2025 JUSTMEBEN LTD. Alle Rechte vorbehalten. Inkorporiert in England und Wales (Company No. 15780010).',
       backToTop: 'Zurück nach oben',
+    },
+
+    // Chatbot
+    chatbot: {
+      title: 'Chat Assistant',
+      subtitle: 'Powered by AI',
+      placeholder: 'Schreiben Sie eine Nachricht...',
+      thinking: 'Überlegen...',
+      welcome: 'Hallo! Ich bin der Assistant von JUSTMEBEN LTD. Wie kann ich dir bei Informationen zu Immobilien-Crowdfunding, Private Equity oder Finanzberatung helfen?',
+      startConversation: 'Starten Sie ein Gespräch...',
+      clearHistory: 'Verlauf löschen',
+      poweredBy: 'Powered by Google Gemini AI',
+      error: 'Entschuldigung, es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.',
     },
   },
 };

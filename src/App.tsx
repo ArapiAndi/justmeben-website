@@ -26,6 +26,9 @@ import { BlogDetailPage } from './pages/BlogDetailPage';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { ArticleEditor } from './pages/admin/ArticleEditor';
 
+// Chatbot
+import Chatbot from './components/Chatbot';
+
 const AppContent: React.FC = () => {
   const { currentPage } = useApp();
 
@@ -93,6 +96,9 @@ const AppContent: React.FC = () => {
 
       {/* Global Interactive Contact / Lead Modal */}
       <ContactModal />
+
+      {/* AI Chatbot Assistant */}
+      <Chatbot />
     </div>
   );
 };
