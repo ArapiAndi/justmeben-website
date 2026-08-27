@@ -70,7 +70,7 @@ export const PortfolioShowcase: React.FC = () => {
               }}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2596be] text-white text-xs sm:text-sm font-medium hover:bg-[#1d7b9c] transition-all cursor-pointer shadow-md hover:shadow-lg hover:shadow-[#2596be]/25"
             >
-              <span>Explore All Opportunities</span>
+              <span>Explore All Cases</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </motion.button>
           </div>

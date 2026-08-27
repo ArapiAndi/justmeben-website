@@ -24,9 +24,9 @@ export const BlogPreviewSection: React.FC = () => {
           className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 gap-6"
         >
           <div>
-            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#155e78] px-3 py-1 rounded-full bg-[#2596be]/10 border border-[#2596be]/20 mb-3">
-              <BookOpen className="w-3.5 h-3.5 text-[#2596be]" />
-              <span>Research & Market Insights</span>
+            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#155e78] px-3 py-1.5 rounded-full bg-[#2596be]/8 border border-[#2596be]/20 mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2596be]" />
+              <span>Research & Insights</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-neutral-900 leading-[1.15]">
               Real Estate, Crowdfunding & Alternative Finance

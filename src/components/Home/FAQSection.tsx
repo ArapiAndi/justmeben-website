@@ -97,7 +97,7 @@ export const FAQSection: React.FC = () => {
       badge: 'Risk Governance',
       question: 'What is your multi-stage evaluation process for real estate investment selection?',
       answer:
-        'We adhere to four core principles: Selection, Structure, Verification, and Ongoing Monitoring. Every opportunity undergoes rigorous technical due diligence (conducted with certified surveyors and architects), legal title checks, financial sensitivity stress-testing (evaluating downside cap rates and exit pricing), and thorough counterparty background verification.',
+        'We adhere to four core principles: Selection, Structure, Verification, and Ongoing Monitoring. Every project undergoes rigorous technical due diligence (conducted with certified surveyors and architects), legal title checks, financial sensitivity stress-testing (evaluating downside cap rates and exit pricing), and thorough counterparty background verification.',
       keyPoints: [
         'Stage 1: Sponsor track record and financial capability audit',
         'Stage 2: Technical, planning permission, and asset condition review',
@@ -128,7 +128,7 @@ export const FAQSection: React.FC = () => {
       keyPoints: [
         'Property developers seeking mezzanine and gap funding for residential/commercial schemes',
         'Scale-ups preparing for equity crowdfunding rounds or series A funding',
-        'Family offices seeking vetted co-investment opportunities in private credit',
+        'Family offices exploring structured private credit and capital deployment strategies',
       ],
     },
     {

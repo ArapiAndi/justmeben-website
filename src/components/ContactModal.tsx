@@ -100,7 +100,7 @@ export const ContactModal: React.FC = () => {
                   </span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-normal text-white mt-1">
-                  Discuss Your Real Estate, Crowdfunding or Investment Mandate
+                  Real Estate, Crowdfunding & Capital Advisory Consultation
                 </h3>
                 <p className="text-xs sm:text-sm text-neutral-400 font-light mt-1.5">
                   We review property development proposals, mezzanine financing requests, crowdfunding mandates, and private equity transactions with rapid turnaround and institutional discretion.
