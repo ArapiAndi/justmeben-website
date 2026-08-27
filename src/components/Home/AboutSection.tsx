@@ -74,7 +74,7 @@ export const AboutSection: React.FC = () => {
               <motion.div
                 style={{ y: floatingCardY }}
                 id="funds-overlay-card"
-                className="absolute bottom-6 left-6 right-6 sm:right-auto sm:max-w-md p-5 rounded-2xl bg-black/70 backdrop-blur-xl border border-[#2596be]/40 text-white shadow-2xl hover:border-[#2596be] transition-colors"
+                className="absolute bottom-6 left-6 right-6 sm:right-auto sm:max-w-md p-5 rounded-2xl bg-black/60 backdrop-blur-sm border border-[#2596be]/30 text-white shadow-xl transition-colors"
               >
                 <p className="text-xs uppercase tracking-wider text-[#a5e1f7] font-semibold mb-2 flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-[#2596be] animate-ping" />
@@ -103,9 +103,9 @@ export const AboutSection: React.FC = () => {
             transition={{ duration: 0.85, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-6 space-y-6 flex flex-col justify-center"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#2596be]/10 border border-[#2596be]/25 text-[#155e78] text-xs font-semibold tracking-wide w-fit">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#2596be]/8 border border-[#2596be]/20 text-[#155e78] text-xs font-semibold tracking-wide w-fit">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2596be]" />
-              <span>Established Track Record</span>
+              <span>Proven Expertise</span>
             </div>
 
             <h2
@@ -146,12 +146,11 @@ export const AboutSection: React.FC = () => {
             return (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.65, delay: 0.2 * idx, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -8, scale: 1.02, boxShadow: '0 24px 48px -12px rgba(37, 150, 190, 0.15)' }}
-                className="p-8 rounded-3xl bg-gradient-to-br from-white/80 to-white/50 backdrop-blur-sm border border-[#2596be]/20 shadow-lg hover:border-[#2596be]/50 transition-all duration-400 group"
+                transition={{ duration: 0.5, delay: 0.15 * idx }}
+                className="p-8 rounded-2xl bg-white border border-neutral-200/60 shadow-sm hover:shadow-md hover:border-neutral-300 transition-all duration-300 group"
               >
                 <motion.div
                   initial={{ scale: 0 }}

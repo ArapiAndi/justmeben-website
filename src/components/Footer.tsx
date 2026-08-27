@@ -106,18 +106,18 @@ export const Footer: React.FC = () => {
               >
                 Global Professionals Network
               </a>
-              <button
-                onClick={() => alert('Terms of Service: Just Me Ben LTD provides corporate finance, real estate structuring, and capital advisory.')}
+              <a
+                href="/privacy-policy"
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Terms of Advisory
-              </button>
-              <button
-                onClick={() => alert('Privacy Notice: Compliant with UK Data Protection Act 2018 and GDPR.')}
+                Privacy Policy
+              </a>
+              <a
+                href="/data-subject-rights"
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Privacy & Data Notice
-              </button>
+                Data Subject Rights
+              </a>
               <a
                 href="https://club.justmebenltd.uk/"
                 target="_blank"

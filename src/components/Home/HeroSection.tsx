@@ -96,18 +96,14 @@ export const HeroSection: React.FC = () => {
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-8 flex flex-col justify-center space-y-8"
         >
-          {/* Badge with Refined Animation */}
+          {/* Badge - Minimal Animation */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.85, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#2596be]/25 to-[#2596be]/15 backdrop-blur-xl border border-[#2596be]/50 text-xs text-[#a5e1f7] font-semibold tracking-wide w-fit shadow-lg shadow-[#2596be]/20 hover:border-[#2596be] transition-all group"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#2596be]/12 border border-[#2596be]/30 text-xs text-[#155e78] font-semibold tracking-wide w-fit transition-all"
           >
-            <motion.span
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-2.5 h-2.5 rounded-full bg-[#2596be]"
-            />
+            <span className="w-2 h-2 rounded-full bg-[#2596be]" />
             <span>{t('hero.badge')}</span>
           </motion.div>
 
@@ -155,25 +151,25 @@ export const HeroSection: React.FC = () => {
             className="flex flex-col sm:flex-row items-start gap-4 pt-4"
           >
             <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.96 }}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
               id="hero-get-in-touch-btn"
               onClick={openContactModal}
-              className="flex items-center gap-2.5 px-7 py-4 rounded-full bg-gradient-to-r from-[#2596be] to-[#1d7b9c] text-white font-semibold text-base tracking-tight hover:shadow-2xl hover:shadow-[#2596be]/40 transition-all duration-300 cursor-pointer shadow-xl shadow-[#2596be]/30 group"
+              className="flex items-center gap-2.5 px-7 py-4 rounded-full bg-[#2596be] text-white font-semibold text-base tracking-tight hover:bg-[#1d7b9c] transition-all duration-200 cursor-pointer shadow-lg group"
             >
               <span>{t('hero.ctaPrimary')}</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </motion.button>
 
             <motion.button
-              whileHover={{ scale: 1.03, borderColor: '#2596be', y: -2 }}
-              whileTap={{ scale: 0.96 }}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
               id="hero-portfolio-btn"
               onClick={() => {
                 setCurrentPage('portfolio');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="flex items-center gap-2 px-7 py-4 rounded-full bg-white/10 hover:bg-white/15 text-white font-medium text-base border border-white/30 hover:border-[#2596be]/60 backdrop-blur-md transition-all duration-300 cursor-pointer"
+              className="flex items-center gap-2 px-7 py-4 rounded-full bg-white/8 hover:bg-white/12 text-white font-medium text-base border border-white/25 transition-all duration-200 cursor-pointer"
             >
               <span>{t('hero.ctaSecondary')}</span>
             </motion.button>

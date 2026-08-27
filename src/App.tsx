@@ -21,6 +21,8 @@ import { InvestmentCriteriaPage } from './pages/InvestmentCriteriaPage';
 import { PortfolioPage } from './pages/PortfolioPage';
 import { BlogListPage } from './pages/BlogListPage';
 import { BlogDetailPage } from './pages/BlogDetailPage';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
+import { DataSubjectRights } from './pages/DataSubjectRights';
 
 // Admin & AI Studio Pages
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -28,6 +30,9 @@ import { ArticleEditor } from './pages/admin/ArticleEditor';
 
 // Chatbot
 import Chatbot from './components/Chatbot';
+
+// GDPR & Privacy
+import { CookieConsent } from './components/CookieConsent';
 
 const AppContent: React.FC = () => {
   const { currentPage } = useApp();
@@ -65,6 +70,10 @@ const AppContent: React.FC = () => {
         return <AdminDashboard />;
       case 'editor':
         return <ArticleEditor />;
+      case 'privacy-policy':
+        return <PrivacyPolicy />;
+      case 'data-subject-rights':
+        return <DataSubjectRights />;
       default:
         return (
           <main>
@@ -96,6 +105,9 @@ const AppContent: React.FC = () => {
 
       {/* Global Interactive Contact / Lead Modal */}
       <ContactModal />
+
+      {/* GDPR Cookie Consent Banner */}
+      <CookieConsent />
 
       {/* AI Chatbot Assistant */}
       <Chatbot />

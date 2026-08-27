@@ -7,6 +7,7 @@ import confetti from 'canvas-confetti';
 export const ContactModal: React.FC = () => {
   const { isContactModalOpen, closeContactModal } = useApp();
   const [submitted, setSubmitted] = useState(false);
+  const [gdprConsent, setGdprConsent] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,6 +21,10 @@ export const ContactModal: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!gdprConsent) {
+      alert('Please agree to our Privacy Policy and GDPR terms to proceed.');
+      return;
+    }
     setSubmitted(true);
     try {
       confetti({
@@ -35,6 +40,7 @@ export const ContactModal: React.FC = () => {
 
   const handleReset = () => {
     setSubmitted(false);
+    setGdprConsent(false);
     setFormData({
       name: '',
       email: '',
@@ -194,19 +200,43 @@ export const ContactModal: React.FC = () => {
                   />
                 </div>
 
-                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 text-xs text-neutral-400">
-                    <MapPin className="w-3.5 h-3.5 text-[#2596be] shrink-0" />
-                    <span>590 Kingston Road, SW20 8DN, London • info@justmebenltd.uk</span>
-                  </div>
+                <div className="pt-4 border-t border-neutral-700 space-y-4">
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={gdprConsent}
+                      onChange={(e) => setGdprConsent(e.target.checked)}
+                      className="mt-1 w-4 h-4 accent-[#2596be] cursor-pointer"
+                      required
+                    />
+                    <span className="text-xs text-neutral-300">
+                      I consent to JUSTMEBEN LTD processing my personal data for advisory purposes, as outlined in the{' '}
+                      <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#2596be] underline font-medium">
+                        Privacy Policy
+                      </a>
+                      . I understand my rights under GDPR and can request access, deletion, or portability of my data at any time via{' '}
+                      <a href="/data-subject-rights" target="_blank" rel="noopener noreferrer" className="text-[#2596be] underline font-medium">
+                        Data Subject Rights
+                      </a>
+                      .
+                    </span>
+                  </label>
 
-                  <button
-                    type="submit"
-                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#2596be] text-white font-semibold text-sm hover:bg-[#1d7b9c] transition-all shadow-lg hover:shadow-[#2596be]/30 cursor-pointer"
-                  >
-                    <span>Submit Mandate Inquiry</span>
-                    <Send className="w-4 h-4" />
-                  </button>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="flex items-center gap-2 text-xs text-neutral-400">
+                      <MapPin className="w-3.5 h-3.5 text-[#2596be] shrink-0" />
+                      <span>590 Kingston Road, SW20 8DN, London • info@justmebenltd.uk</span>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={!gdprConsent}
+                      className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#2596be] text-white font-semibold text-sm hover:bg-[#1d7b9c] transition-all shadow-lg hover:shadow-[#2596be]/30 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <span>Submit Inquiry</span>
+                      <Send className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
