@@ -58,7 +58,7 @@ export const BlogPreviewSection: React.FC = () => {
               transition={{ duration: 0.65, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
               whileHover={{ y: -12, scale: 1.03, boxShadow: '0 32px 56px -12px rgba(37, 150, 190, 0.15)' }}
               onClick={() => navigateToArticle(article.slug)}
-              className="group flex flex-col justify-between bg-white rounded-3xl overflow-hidden border border-neutral-200/50 shadow-lg hover:border-[#2596be]/60 transition-all duration-400 cursor-pointer"
+              className="group flex flex-col justify-between bg-white rounded-2xl overflow-hidden border border-neutral-200/60 shadow-sm hover:shadow-md hover:border-neutral-300 transition-all duration-300 cursor-pointer"
             >
               <div>
                 <motion.div

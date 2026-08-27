@@ -23,6 +23,9 @@ import { BlogListPage } from './pages/BlogListPage';
 import { BlogDetailPage } from './pages/BlogDetailPage';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { DataSubjectRights } from './pages/DataSubjectRights';
+import { RiskDisclaimer } from './pages/RiskDisclaimer';
+import { TermsOfService } from './pages/TermsOfService';
+import { CookiePolicyPage } from './pages/CookiePolicyPage';
 
 // Admin & AI Studio Pages
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -33,6 +36,7 @@ import Chatbot from './components/Chatbot';
 
 // GDPR & Privacy
 import { CookieConsent } from './components/CookieConsent';
+import { RiskWarningBanner } from './components/RiskWarningBanner';
 
 const AppContent: React.FC = () => {
   const { currentPage } = useApp();
@@ -74,6 +78,12 @@ const AppContent: React.FC = () => {
         return <PrivacyPolicy />;
       case 'data-subject-rights':
         return <DataSubjectRights />;
+      case 'risk-disclaimer':
+        return <RiskDisclaimer />;
+      case 'terms-of-service':
+        return <TermsOfService />;
+      case 'cookie-policy':
+        return <CookiePolicyPage />;
       default:
         return (
           <main>
@@ -91,6 +101,9 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] font-['Plus_Jakarta_Sans',sans-serif] text-[#121316] flex flex-col justify-between selection:bg-neutral-900 selection:text-white">
+      {/* Risk Warning Banner */}
+      <RiskWarningBanner />
+
       {/* Scroll Progress Indicator & Back-to-Top Ring */}
       <ScrollProgress />
 

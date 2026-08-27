@@ -106,18 +106,36 @@ export const Footer: React.FC = () => {
               >
                 Global Professionals Network
               </a>
-              <a
-                href="/privacy-policy"
+              <button
+                onClick={() => handleNav('privacy-policy')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="/data-subject-rights"
+              </button>
+              <button
+                onClick={() => handleNav('terms-of-service')}
+                className="text-left text-neutral-300 hover:text-white transition-colors"
+              >
+                Terms of Service
+              </button>
+              <button
+                onClick={() => handleNav('cookie-policy')}
+                className="text-left text-neutral-300 hover:text-white transition-colors"
+              >
+                Cookie Policy
+              </button>
+              <button
+                onClick={() => handleNav('risk-disclaimer')}
+                className="text-left text-neutral-300 hover:text-white transition-colors"
+              >
+                Risk Disclaimer
+              </button>
+              <button
+                onClick={() => handleNav('data-subject-rights')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
                 Data Subject Rights
-              </a>
+              </button>
               <a
                 href="https://club.justmebenltd.uk/"
                 target="_blank"
@@ -170,7 +188,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar: Copyright & Back to top */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 font-light">
-          <div>© 2025 JUSTMEBEN LTD. All Rights Reserved. Incorporated in England & Wales (Company No. 15780010).</div>
+          <div>© 2026 JUSTMEBEN LTD. All Rights Reserved. Incorporated in England & Wales (Company No. 15780010).</div>
           <button
             id="back-to-top-btn"
             onClick={scrollToTop}

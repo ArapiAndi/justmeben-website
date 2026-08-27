@@ -19,6 +19,9 @@ interface AppContextType {
   duplicateArticle: (id: string) => BlogPost | null;
   getArticleBySlug: (slug: string) => BlogPost | undefined;
   incrementViews: (slug: string) => void;
+  archiveArticle: (id: string) => void;
+  unPublishArticle: (id: string) => void;
+  restoreArticleFromArchive: (id: string) => void;
 
   // Categories
   addCategory: (category: Omit<BlogCategory, 'id' | 'articleCount'>) => void;

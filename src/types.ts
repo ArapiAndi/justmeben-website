@@ -1,4 +1,4 @@
-export type ArticleStatus = 'draft' | 'scheduled' | 'published';
+export type ArticleStatus = 'draft' | 'scheduled' | 'published' | 'archived';
 
 export interface InternalLinkSuggestion {
   anchorText: string;
