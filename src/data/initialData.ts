@@ -168,9 +168,9 @@ Questo assetto consente agli sviluppatori di strutturare in modo equilibrato le 
     id: 'post-3',
     title: 'Metodologie di Underwriting e Due Diligence per Investimenti Immobiliari Complessi',
     slug: 'metodologie-underwriting-due-diligence-investimenti-immobiliari',
-    excerpt: 'I 4 livelli di verifica tecnica, legale, finanziaria e urbanistica per mitigare il rischio di ribasso e garantire la bancabilità delle operazioni.',
+    excerpt: 'I 4 livelli di verifica tecnica, legale, finanziaria e urbanistica per mitigare il rischio di ribasso e garantire la bancabilità.',
     content: `## Il Rigore nell'Analisi del Rischio
-Ogni operazione di investimento o raccolta di capitale deve superare un processo di screening quantitativo e qualitativo prima di essere proposta a partner e investitori.
+Ogni investimento o raccolta di capitale deve superare un processo di screening quantitativo e qualitativo prima di essere proposta a partner e investitori.
 
 ---
 
