@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
 
 export const CookieConsent: React.FC = () => {
+  const { t } = useLanguage();
   const [show, setShow] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [preferences, setPreferences] = useState({
@@ -53,8 +55,7 @@ export const CookieConsent: React.FC = () => {
                   <div className="space-y-2">
                     <h3 className="text-lg sm:text-xl font-semibold text-neutral-900">🍪 Cookies & Data Protection</h3>
                     <p className="text-sm text-neutral-600 leading-relaxed">
-                      We use essential cookies for site functionality. Some external services (Vimeo, Google Fonts, Unsplash) may log your requests.
-                      By continuing, you consent to our <a href="/privacy-policy" className="text-[#2596be] underline font-medium">Privacy Policy</a>.
+                      {t('cookies.banner')}
                     </p>
                   </div>
                   <button onClick={() => setShow(false)} className="text-neutral-400 hover:text-neutral-600 flex-shrink-0">
@@ -67,19 +68,19 @@ export const CookieConsent: React.FC = () => {
                     onClick={handleAcceptAll}
                     className="flex-1 px-4 py-3 rounded-full bg-[#2596be] text-white font-semibold text-sm hover:bg-[#1d7b9c] transition-colors cursor-pointer"
                   >
-                    Accept All Cookies
+                    {t('cookies.acceptAll')}
                   </button>
                   <button
                     onClick={() => setShowSettings(true)}
                     className="flex-1 px-4 py-3 rounded-full bg-neutral-100 text-neutral-900 font-semibold text-sm hover:bg-neutral-200 transition-colors cursor-pointer"
                   >
-                    Manage Preferences
+                    {t('cookies.managePrefs')}
                   </button>
                   <button
                     onClick={handleAcceptEssential}
                     className="flex-1 px-4 py-3 rounded-full border border-neutral-300 text-neutral-900 font-semibold text-sm hover:bg-neutral-50 transition-colors cursor-pointer"
                   >
-                    Essential Only
+                    {t('cookies.acceptEssential')}
                   </button>
                 </div>
               </div>
@@ -94,7 +95,7 @@ export const CookieConsent: React.FC = () => {
                       <div className="flex-1">
                         <p className="font-medium text-neutral-900 text-sm">Essential Cookies (Required)</p>
                         <p className="text-xs text-neutral-600 mt-1">
-                          Necessary for site functionality, security, and session management. Cannot be disabled.
+                          {t('cookies.essentialDesc')}
                         </p>
                       </div>
                     </div>
@@ -111,7 +112,7 @@ export const CookieConsent: React.FC = () => {
                       <div className="flex-1">
                         <p className="font-medium text-neutral-900 text-sm">Analytics Cookies</p>
                         <p className="text-xs text-neutral-600 mt-1">
-                          Help us understand how you use our website to improve your experience.
+                          {t('cookies.analyticsDesc')}
                         </p>
                       </div>
                     </label>
@@ -128,7 +129,7 @@ export const CookieConsent: React.FC = () => {
                       <div className="flex-1">
                         <p className="font-medium text-neutral-900 text-sm">Marketing Cookies</p>
                         <p className="text-xs text-neutral-600 mt-1">
-                          Allow us to deliver personalized content and track campaign effectiveness.
+                          {t('cookies.marketingDesc')}
                         </p>
                       </div>
                     </label>
@@ -140,13 +141,13 @@ export const CookieConsent: React.FC = () => {
                     onClick={() => setShowSettings(false)}
                     className="flex-1 px-4 py-3 rounded-full border border-neutral-300 text-neutral-900 font-semibold text-sm hover:bg-neutral-50 transition-colors cursor-pointer"
                   >
-                    Back
+                    {t('cookies.backBtn')}
                   </button>
                   <button
                     onClick={handleSavePreferences}
                     className="flex-1 px-4 py-3 rounded-full bg-[#2596be] text-white font-semibold text-sm hover:bg-[#1d7b9c] transition-colors cursor-pointer"
                   >
-                    Save Preferences
+                    {t('cookies.saveBtn')}
                   </button>
                 </div>
               </div>

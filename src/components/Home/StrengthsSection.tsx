@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ShieldCheck, Compass, Zap, CheckCircle2 } from 'lucide-react';
 
 export const StrengthsSection: React.FC = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -15,26 +17,30 @@ export const StrengthsSection: React.FC = () => {
   const bgOpacity = useTransform(scrollYProgress, [0, 0.25, 1], [0.7, 0.9, 1]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.3, 1], [0, 1, 1]);
 
+  const strength1Highlights = t('strengths.strength1Highlights');
+  const strength2Highlights = t('strengths.strength2Highlights');
+  const strength3Highlights = t('strengths.strength3Highlights');
+
   const strengths = [
     {
       id: 'strength-1',
-      title: 'Comprehensive Strategic Planning',
-      description: 'Expert discovery, detailed analysis, strategic planning, and full implementation support. Four-phase methodology ensuring discovery, planning, execution, and continuous optimization.',
-      highlights: ['Market research & analysis', 'Business development strategy', 'Implementation roadmap', 'Performance monitoring'],
+      title: t('strengths.strength1'),
+      description: t('strengths.strength1Desc'),
+      highlights: Array.isArray(strength1Highlights) ? strength1Highlights : [],
       icon: Compass,
     },
     {
       id: 'strength-2',
-      title: 'Crowdfunding & Capital Solutions',
-      description: 'Navigate reward-based, equity crowdfunding, donation-based, and debt crowdfunding models with regulatory expertise and strategic syndication support.',
-      highlights: ['Crowdfunding campaign design', 'Platform optimization', 'Investor syndication', 'Regulatory compliance'],
+      title: t('strengths.strength2'),
+      description: t('strengths.strength2Desc'),
+      highlights: Array.isArray(strength2Highlights) ? strength2Highlights : [],
       icon: ShieldCheck,
     },
     {
       id: 'strength-3',
-      title: 'Private Equity & Venture Capital',
-      description: 'Venture capital guidance for early-stage companies, growth capital strategies, buyouts, and specialized distressed investing with mezzanine financing expertise.',
-      highlights: ['Venture capital advisory', 'Growth capital solutions', 'Investment structuring', 'Operational excellence'],
+      title: t('strengths.strength3'),
+      description: t('strengths.strength3Desc'),
+      highlights: Array.isArray(strength3Highlights) ? strength3Highlights : [],
       icon: Zap,
     },
   ];
@@ -70,7 +76,7 @@ export const StrengthsSection: React.FC = () => {
         >
           <span className="w-2 h-2 rounded-full bg-[#2596be] animate-ping" />
           <span className="text-xs uppercase tracking-[0.25em] text-[#a5e1f7] font-semibold">
-            Why Work With JUSTMEBEN LTD
+            {t('strengths.badge')}
           </span>
         </motion.div>
 
@@ -83,7 +89,7 @@ export const StrengthsSection: React.FC = () => {
           id="strengths-headline"
           className="text-3xl sm:text-4xl md:text-5xl font-normal text-center text-white tracking-tight mb-16 max-w-2xl leading-[1.18]"
         >
-          Strategic Pillars & Capital Advisory
+          {t('strengths.headline')}
         </motion.h2>
 
         {/* Enhanced Premium Cards with Coordinated Animations */}

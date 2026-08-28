@@ -1,9 +1,11 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { ArrowRight, ArrowUp } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const { setCurrentPage, openContactModal } = useApp();
+  const { t } = useLanguage();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -44,43 +46,43 @@ export const Footer: React.FC = () => {
             {/* Primary Nav */}
             <div className="space-y-3 flex flex-col">
               <span className="text-neutral-500 uppercase tracking-widest text-[10px] font-medium mb-1">
-                Advisory & Practice
+                {t('footer.primary')}
               </span>
               <button
                 onClick={() => handleNav('home')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Home
+                {t('footer.home')}
               </button>
               <button
                 onClick={() => handleNav('about')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                About Just Me Ben
+                {t('footer.about')}
               </button>
               <button
                 onClick={() => handleNav('about')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Our Advisory Approach
+                {t('footer.approach')}
               </button>
               <button
                 onClick={() => handleNav('criteria')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Advisory Assessment Criteria
+                {t('footer.investment')}
               </button>
               <button
                 onClick={() => handleNav('portfolio')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Advisory Cases & Documentation
+                {t('footer.opportunities')}
               </button>
               <button
                 onClick={() => handleNav('blog')}
                 className="text-left text-neutral-300 hover:text-white transition-colors flex items-center gap-1.5"
               >
-                <span>Insights & Research</span>
+                <span>{t('footer.insights')}</span>
                 <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/15 text-white/90">AI</span>
               </button>
             </div>
@@ -88,7 +90,7 @@ export const Footer: React.FC = () => {
             {/* Legal & Social */}
             <div className="space-y-3 flex flex-col">
               <span className="text-neutral-500 uppercase tracking-widest text-[10px] font-medium mb-1">
-                Governance & Network
+                {t('footer.governance')}
               </span>
               <a
                 href="https://linkedin.com"
@@ -96,37 +98,37 @@ export const Footer: React.FC = () => {
                 rel="noreferrer"
                 className="text-neutral-300 hover:text-white transition-colors"
               >
-                Global Professionals Network
+                {t('footer.network')}
               </a>
               <button
                 onClick={() => handleNav('privacy-policy')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Privacy Policy
+                {t('footer.privacy')}
               </button>
               <button
                 onClick={() => handleNav('terms-of-service')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Terms of Service
+                {t('footer.terms')}
               </button>
               <button
                 onClick={() => handleNav('cookie-policy')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Cookie Policy
+                {t('footer.cookiePolicy')}
               </button>
               <button
                 onClick={() => handleNav('risk-disclaimer')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Risk Disclaimer
+                {t('footer.riskDisclaimer')}
               </button>
               <button
                 onClick={() => handleNav('data-subject-rights')}
                 className="text-left text-neutral-300 hover:text-white transition-colors"
               >
-                Data Subject Rights
+                {t('footer.dataRights')}
               </button>
               <a
                 href="https://club.justmebenltd.uk/"
@@ -134,7 +136,7 @@ export const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 className="text-left text-neutral-300 hover:text-white transition-colors pt-2 text-xs flex items-center gap-1.5"
               >
-                <span>Club & Sign In</span>
+                <span>{t('footer.club')}</span>
                 <ArrowRight className="w-3 h-3 text-neutral-500" />
               </a>
             </div>
@@ -142,7 +144,7 @@ export const Footer: React.FC = () => {
             {/* Contact & Location */}
             <div className="space-y-3 col-span-2 sm:col-span-1">
               <span className="text-neutral-500 uppercase tracking-widest text-[10px] font-medium mb-1">
-                Registered Office & Contacts
+                {t('footer.contact')}
               </span>
               <div className="space-y-1">
                 <a
@@ -170,13 +172,13 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar: Copyright & Back to top */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 font-light">
-          <div>© 2026 JUSTMEBEN LTD. All Rights Reserved. Incorporated in England & Wales (Company No. 15780010).</div>
+          <div>{t('footer.copyright')}</div>
           <button
             id="back-to-top-btn"
             onClick={scrollToTop}
             className="flex items-center gap-1.5 hover:text-white transition-colors group cursor-pointer"
           >
-            <span>Back to top</span>
+            <span>{t('footer.backToTop')}</span>
             <ArrowUp className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5" />
           </button>
         </div>

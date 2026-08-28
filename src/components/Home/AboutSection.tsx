@@ -78,17 +78,17 @@ export const AboutSection: React.FC = () => {
               >
                 <p className="text-xs uppercase tracking-wider text-[#a5e1f7] font-semibold mb-2 flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-[#2596be] animate-ping" />
-                  Capital Deployment & Advisory
+                  {t('about.deploymentLabel')}
                 </p>
                 <div className="flex items-center gap-6">
                   <div>
                     <div className="text-2xl font-light tracking-tight text-white">£45M+</div>
-                    <div className="text-[11px] text-white/70 mt-0.5">Real Estate & Mezzanine</div>
+                    <div className="text-[11px] text-white/70 mt-0.5">{t('about.realEstateLabel')}</div>
                   </div>
                   <div className="w-[1px] h-8 bg-[#2596be]/40" />
                   <div>
                     <div className="text-2xl font-light tracking-tight text-white">£75M+</div>
-                    <div className="text-[11px] text-white/70 mt-0.5">Private Equity & Venture</div>
+                    <div className="text-[11px] text-white/70 mt-0.5">{t('about.peLabel')}</div>
                   </div>
                 </div>
               </motion.div>
@@ -105,7 +105,7 @@ export const AboutSection: React.FC = () => {
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#2596be]/8 border border-[#2596be]/20 text-[#155e78] text-xs font-semibold tracking-wide w-fit">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2596be]" />
-              <span>Proven Expertise</span>
+              <span>{t('about.badge')}</span>
             </div>
 
             <h2
@@ -116,7 +116,7 @@ export const AboutSection: React.FC = () => {
             </h2>
 
             <p className="text-base sm:text-lg text-neutral-600 font-light leading-relaxed">
-              We provide advisory services to entrepreneurs, organizations, and capital sources on strategic planning, capital structuring, and financial analysis. Our comprehensive approach ensures informed decision-making across diverse financing structures and asset classes.
+              {t('about.sectionDesc')}
             </p>
 
             <div className="pt-2">

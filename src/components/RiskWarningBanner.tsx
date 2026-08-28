@@ -1,10 +1,12 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { AlertTriangle, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const RiskWarningBanner: React.FC = () => {
   const { setCurrentPage } = useApp();
+  const { t } = useLanguage();
 
   return (
     <motion.div
@@ -22,8 +24,7 @@ export const RiskWarningBanner: React.FC = () => {
                 ⚠️ INVESTMENT RISK WARNING
               </p>
               <p className="text-xs sm:text-sm text-red-800 mt-1 font-light">
-                Investments carry significant risk of total capital loss. This is advisory information only, not investment advice.
-                Read our Risk Disclaimer before proceeding.
+                {t('riskBanner.description')}
               </p>
             </div>
           </div>
@@ -34,7 +35,7 @@ export const RiskWarningBanner: React.FC = () => {
             }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-600 text-white font-semibold text-xs sm:text-sm hover:bg-red-700 transition-colors cursor-pointer flex-shrink-0 whitespace-nowrap"
           >
-            <span>Read Disclaimer</span>
+            <span>{t('riskBanner.readBtn')}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

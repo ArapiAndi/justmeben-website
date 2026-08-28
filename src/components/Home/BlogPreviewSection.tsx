@@ -140,7 +140,7 @@ export const BlogPreviewSection: React.FC = () => {
                   whileHover={{ x: 3 }}
                   transition={{ duration: 0.3 }}
                 >
-                  Leggi
+                  {t('blog.readBtn')}
                   <motion.div animate={{ x: [0, 2, 0] }} transition={{ duration: 2, repeat: Infinity }}>
                     <ArrowRight className="w-4 h-4" />
                   </motion.div>

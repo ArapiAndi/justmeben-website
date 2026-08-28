@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
 import { useApp } from '../../context/AppContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'motion/react';
 
 export const ContactCtaBanner: React.FC = () => {
   const { openContactModal } = useApp();
+  const { t } = useLanguage();
   const bannerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -51,7 +53,7 @@ export const ContactCtaBanner: React.FC = () => {
               className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#2596be]/15 backdrop-blur-sm border border-[#2596be]/30 text-xs font-semibold text-[#a5e1f7] uppercase tracking-wider"
             >
               <Sparkles className="w-4 h-4 text-[#2596be]" />
-              <span>Expert Consulting & Capital Advisory</span>
+              <span>{t('contact.badge')}</span>
             </motion.div>
 
             <motion.div
@@ -65,9 +67,9 @@ export const ContactCtaBanner: React.FC = () => {
                 id="cta-banner-headline"
                 className="text-5xl sm:text-6xl md:text-7xl font-normal text-white tracking-tight leading-[1.1]"
               >
-                <span className="block">Ready to Explore</span>
+                <span className="block">{t('contact.headline1')}</span>
                 <span className="block bg-gradient-to-r from-[#2596be] via-[#a5e1f7] to-[#2596be] bg-clip-text text-transparent">
-                  Advisory Options?
+                  {t('contact.headline2')}
                 </span>
               </h2>
             </motion.div>
@@ -79,7 +81,7 @@ export const ContactCtaBanner: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.25 }}
               className="text-white/85 text-base sm:text-lg font-light max-w-2xl leading-relaxed"
             >
-              Discuss your capital structuring needs and learn how our team can support your project evaluation and advisory services.
+              {t('contact.description')}
             </motion.p>
 
             <motion.button
@@ -93,7 +95,7 @@ export const ContactCtaBanner: React.FC = () => {
               onClick={openContactModal}
               className="flex items-center gap-3 px-9 py-5 rounded-full bg-[#2596be] text-white font-semibold text-base sm:text-lg tracking-tight transition-all duration-200 shadow-lg hover:bg-[#1d7b9c] cursor-pointer group"
             >
-              <span>Get in Touch</span>
+              <span>{t('contact.ctaBtn')}</span>
               <motion.div
                 animate={{ x: [0, 4, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}

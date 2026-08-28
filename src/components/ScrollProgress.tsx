@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { motion, useScroll, useSpring } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
 
 export const ScrollProgress: React.FC = () => {
+  const { t } = useLanguage();
   const { scrollYProgress, scrollY } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 120,
@@ -55,7 +57,7 @@ export const ScrollProgress: React.FC = () => {
         <button
           id="back-to-top-btn"
           onClick={scrollToTop}
-          aria-label="Scroll back to top"
+          aria-label={t('scrollProgress.backToTop')}
           className="relative group p-3.5 rounded-full bg-neutral-900/90 text-white backdrop-blur-xl border border-[#2596be]/30 shadow-2xl hover:border-[#2596be] hover:shadow-[0_0_20px_rgba(37,150,190,0.4)] transition-all duration-300 flex items-center justify-center cursor-pointer hover:scale-110"
         >
           {/* SVG Progress Circle */}

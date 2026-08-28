@@ -124,7 +124,7 @@ export const Header: React.FC = () => {
             className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/15 text-white text-xs font-medium border border-white/20"
           >
             <LogIn className="w-3.5 h-3.5" />
-            <span>Sign In</span>
+            <span>{t('nav.signIn')}</span>
           </a>
           <button
             id="mobile-menu-toggle"
@@ -175,7 +175,7 @@ export const Header: React.FC = () => {
                 >
                   <span className="flex items-center gap-2">
                     <LogIn className="w-4 h-4 text-white/80" />
-                    <span>Sign In</span>
+                    <span>{t('nav.signIn')}</span>
                   </span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
@@ -187,7 +187,7 @@ export const Header: React.FC = () => {
                   }}
                   className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-white text-black font-semibold text-sm shadow-md"
                 >
-                  <span>Get in Touch</span>
+                  <span>{t('nav.getInTouch')}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>

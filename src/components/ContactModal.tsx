@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { X, Send, CheckCircle2, Building, Mail, MapPin, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
 
 export const ContactModal: React.FC = () => {
   const { isContactModalOpen, closeContactModal } = useApp();
+  const { t } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [gdprConsent, setGdprConsent] = useState(false);
+
+  const roleOptions = t('contactForm.roleOptions');
+  const dealSizeOptions = t('contactForm.dealSizeOptions');
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    role: 'Search Fund Entrepreneur / Searcher',
+    role: typeof roleOptions === 'object' && Array.isArray(roleOptions) ? roleOptions[0] : 'Property Developer / Real Estate Sponsor',
     companyName: '',
-    ebitdaRange: '$2M - $5M',
-    sector: 'Industrial Services',
+    ebitdaRange: typeof dealSizeOptions === 'object' && Array.isArray(dealSizeOptions) ? dealSizeOptions[0] : '£1M - £5M (Senior / Mezzanine Gap)',
+    sector: '',
     message: '',
   });
 
@@ -45,10 +51,10 @@ export const ContactModal: React.FC = () => {
       name: '',
       email: '',
       phone: '',
-      role: 'Search Fund Entrepreneur / Searcher',
+      role: typeof roleOptions === 'object' && Array.isArray(roleOptions) ? roleOptions[0] : 'Property Developer / Real Estate Sponsor',
       companyName: '',
-      ebitdaRange: '$2M - $5M',
-      sector: 'Industrial Services',
+      ebitdaRange: typeof dealSizeOptions === 'object' && Array.isArray(dealSizeOptions) ? dealSizeOptions[0] : '£1M - £5M (Senior / Mezzanine Gap)',
+      sector: '',
       message: '',
     });
     closeContactModal();
@@ -96,14 +102,14 @@ export const ContactModal: React.FC = () => {
                     }}
                   />
                   <span className="text-xs uppercase tracking-widest text-[#2596be] font-semibold">
-                    JUSTMEBEN LTD • Direct Capital & Advisory
+                    {t('contactForm.eyebrow')}
                   </span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-normal text-white mt-1">
-                  Real Estate, Crowdfunding & Capital Advisory Consultation
+                  {t('contactForm.formTitle')}
                 </h3>
                 <p className="text-xs sm:text-sm text-neutral-400 font-light mt-1.5">
-                  We review property development proposals, mezzanine financing requests, crowdfunding mandates, and private equity transactions with rapid turnaround and institutional discretion.
+                  {t('contactForm.formDesc')}
                 </p>
               </div>
 
@@ -111,7 +117,7 @@ export const ContactModal: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-medium text-neutral-300 mb-1">
-                      Full Name *
+                      {t('contactForm.formNameLabel')}
                     </label>
                     <input
                       type="text"
@@ -125,7 +131,7 @@ export const ContactModal: React.FC = () => {
 
                   <div>
                     <label className="block text-xs font-medium text-neutral-300 mb-1">
-                      Business Email *
+                      {t('contactForm.formEmailLabel')}
                     </label>
                     <input
                       type="email"
@@ -141,42 +147,38 @@ export const ContactModal: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-medium text-neutral-300 mb-1">
-                      Your Profile / Mandate Type
+                      {t('contactForm.formRoleLabel')}
                     </label>
                     <select
                       value={formData.role}
                       onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-white text-sm focus:outline-none focus:border-[#2596be] focus:ring-1 focus:ring-[#2596be]"
                     >
-                      <option>Property Developer / Real Estate Sponsor</option>
-                      <option>Crowdfunding Campaign Issuer / Scale-Up</option>
-                      <option>Private Equity / Family Office Co-Investor</option>
-                      <option>Financial Intermediary / M&A Advisor</option>
-                      <option>Institutional Private Credit Provider</option>
+                      {Array.isArray(roleOptions) && roleOptions.map((option, idx) => (
+                        <option key={idx}>{option}</option>
+                      ))}
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-xs font-medium text-neutral-300 mb-1">
-                      Target Deal Size / Capital Needed
+                      {t('contactForm.formDealSizeLabel')}
                     </label>
                     <select
                       value={formData.ebitdaRange}
                       onChange={(e) => setFormData({ ...formData, ebitdaRange: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-white text-sm focus:outline-none focus:border-[#2596be] focus:ring-1 focus:ring-[#2596be]"
                     >
-                      <option>£1M - £5M (Senior / Mezzanine Gap)</option>
-                      <option>£5M - £15M (Property Development / Series A)</option>
-                      <option>£15M - £40M (Portfolio / Platform Equity)</option>
-                      <option>£40M+ (Institutional Syndication)</option>
-                      <option>Advisory / Feasibility Assessment Phase</option>
+                      {Array.isArray(dealSizeOptions) && dealSizeOptions.map((option, idx) => (
+                        <option key={idx}>{option}</option>
+                      ))}
                     </select>
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-xs font-medium text-neutral-300 mb-1">
-                    Asset Class / Sector
+                    {t('contactForm.formSectorLabel')}
                   </label>
                   <input
                     type="text"
@@ -189,7 +191,7 @@ export const ContactModal: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-medium text-neutral-300 mb-1">
-                    Project Overview / Funding Requirements
+                    {t('contactForm.formMessageLabel')}
                   </label>
                   <textarea
                     rows={3}
@@ -210,15 +212,7 @@ export const ContactModal: React.FC = () => {
                       required
                     />
                     <span className="text-xs text-neutral-300">
-                      I consent to JUSTMEBEN LTD processing my personal data for advisory purposes, as outlined in the{' '}
-                      <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#2596be] underline font-medium">
-                        Privacy Policy
-                      </a>
-                      . I understand my rights under GDPR and can request access, deletion, or portability of my data at any time via{' '}
-                      <a href="/data-subject-rights" target="_blank" rel="noopener noreferrer" className="text-[#2596be] underline font-medium">
-                        Data Subject Rights
-                      </a>
-                      .
+                      {t('contactForm.gdprConsent')}
                     </span>
                   </label>
 
@@ -233,7 +227,7 @@ export const ContactModal: React.FC = () => {
                       disabled={!gdprConsent}
                       className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#2596be] text-white font-semibold text-sm hover:bg-[#1d7b9c] transition-all shadow-lg hover:shadow-[#2596be]/30 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <span>Submit Inquiry</span>
+                      <span>{t('contactForm.submitBtn')}</span>
                       <Send className="w-4 h-4" />
                     </button>
                   </div>
@@ -246,17 +240,17 @@ export const ContactModal: React.FC = () => {
                 <CheckCircle2 className="w-9 h-9" />
               </div>
               <h3 className="text-2xl sm:text-3xl font-normal text-white">
-                Inquiry Received Successfully
+                {t('contactForm.successTitle')}
               </h3>
               <p className="text-sm text-neutral-300 max-w-md mx-auto font-light leading-relaxed">
-                Thank you, <strong>{formData.name}</strong>. JUSTMEBEN LTD has received your inquiry regarding {formData.sector}. A senior advisory partner will review your requirements and follow up at <strong>{formData.email}</strong>.
+                {t('contactForm.successMessage', { name: formData.name, sector: formData.sector, email: formData.email })}
               </p>
               <div className="pt-4">
                 <button
                   onClick={handleReset}
                   className="px-6 py-2.5 rounded-full bg-[#2596be] text-white text-sm font-semibold hover:bg-[#1d7b9c] transition-colors"
                 >
-                  Close Window
+                  {t('contactForm.closeBtn')}
                 </button>
               </div>
             </div>
