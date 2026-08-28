@@ -9,7 +9,6 @@ import { ScrollProgress } from './components/ScrollProgress';
 // Home Sections
 import { HeroSection } from './components/Home/HeroSection';
 import { AboutSection } from './components/Home/AboutSection';
-import { PortfolioShowcase } from './components/Home/PortfolioShowcase';
 import { StrengthsSection } from './components/Home/StrengthsSection';
 import { BlogPreviewSection } from './components/Home/BlogPreviewSection';
 import { FAQSection } from './components/Home/FAQSection';
@@ -60,7 +59,6 @@ const AppContent: React.FC = () => {
           <main>
             <HeroSection />
             <AboutSection />
-            <PortfolioShowcase />
             <StrengthsSection />
             <BlogPreviewSection />
             <FAQSection />
