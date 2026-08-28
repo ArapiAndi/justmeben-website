@@ -23,22 +23,22 @@ export const AboutSection: React.FC = () => {
 
   const stats = [
     {
-      value: '£120M+',
-      label: 'Transactions & Advisory Structured',
+      value: t('about.stat1Value'),
+      label: t('about.stat1Label'),
       icon: TrendingUp,
-      desc: 'Across real estate & private equity'
+      desc: t('about.stat1Desc')
     },
     {
-      value: '45+',
-      label: 'Completed Projects & Mandates',
+      value: t('about.stat2Value'),
+      label: t('about.stat2Label'),
       icon: Building,
-      desc: 'In UK and European jurisdictions'
+      desc: t('about.stat2Desc')
     },
     {
-      value: '15+',
-      label: 'Years of Combined Expertise',
+      value: t('about.stat3Value'),
+      label: t('about.stat3Label'),
       icon: Award,
-      desc: 'In alternative debt & equity markets'
+      desc: t('about.stat3Desc')
     },
   ];
 
