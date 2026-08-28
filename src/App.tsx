@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
-import { LanguageProvider } from './context/LanguageContext';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { ContactModal } from './components/ContactModal';
@@ -38,6 +38,14 @@ import { CookieConsent } from './components/CookieConsent';
 
 const AppContent: React.FC = () => {
   const { currentPage, isAdminAuthenticated, setCurrentPage } = useApp();
+  const { language } = useLanguage();
+
+  // Set HTML lang attribute and RTL direction based on selected language
+  useEffect(() => {
+    const htmlElement = document.documentElement;
+    htmlElement.lang = language;
+    htmlElement.dir = language === 'he' ? 'rtl' : 'ltr';
+  }, [language]);
 
   // Scroll to top on page transition
   useEffect(() => {
