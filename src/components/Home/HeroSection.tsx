@@ -143,37 +143,6 @@ export const HeroSection: React.FC = () => {
             {t('hero.subheading')}
           </motion.p>
 
-          {/* Enhanced CTAs with Stagger */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-start gap-4 pt-4"
-          >
-            <motion.button
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              id="hero-get-in-touch-btn"
-              onClick={openContactModal}
-              className="flex items-center gap-2.5 px-7 py-4 rounded-full bg-[#2596be] text-white font-semibold text-base tracking-tight hover:bg-[#1d7b9c] transition-all duration-200 cursor-pointer shadow-lg group"
-            >
-              <span>{t('hero.ctaPrimary')}</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </motion.button>
-
-            <motion.button
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              id="hero-portfolio-btn"
-              onClick={() => {
-                setCurrentPage('portfolio');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="flex items-center gap-2 px-7 py-4 rounded-full bg-white/8 hover:bg-white/12 text-white font-medium text-base border border-white/25 transition-all duration-200 cursor-pointer"
-            >
-              <span>{t('hero.ctaSecondary')}</span>
-            </motion.button>
-          </motion.div>
         </motion.div>
 
         {/* Right Column: Premium Stat Card */}

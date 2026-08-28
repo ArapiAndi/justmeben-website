@@ -27,14 +27,6 @@ export const Footer: React.FC = () => {
               <p className="text-sm sm:text-base text-neutral-300 font-light leading-relaxed">
                 Justmeben LTD advises developers, founders, and institutional co-investors in real estate structuring, crowdfunding, and private capital raising.
               </p>
-              <button
-                id="footer-get-in-touch-btn"
-                onClick={openContactModal}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-xs sm:text-sm font-semibold hover:bg-neutral-200 transition-colors cursor-pointer"
-              >
-                <span>Request Advisory</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
             </div>
 
             {/* JUST ME BEN LTD Logo */}
