@@ -30,7 +30,7 @@ interface AppContextType {
   // Admin Auth & Modal
   isAdminAuthenticated: boolean;
   adminToken: string | null;
-  loginAdmin: (password: string) => boolean;
+  loginAdmin: (password: string) => Promise<boolean>;
   logoutAdmin: () => void;
   isContactModalOpen: boolean;
   openContactModal: () => void;
@@ -236,26 +236,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCategories((prev) => prev.filter((c) => c.id !== id));
   };
 
-  const loginAdmin = (password: string) => {
+  const loginAdmin = async (password: string) => {
     // Allows demo login with passcode 'siwa2025' or 'admin'
     const validPasswords = ['siwa2025', 'admin', 'demo'];
     if (!validPasswords.includes(password)) {
       return false;
     }
 
-    // Retrieve token from server
-    fetch('/api/admin/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.token) {
-          setAdminToken(data.token);
-        }
-      })
-      .catch((e) => console.warn('Token fetch fallback', e));
+    try {
+      // Retrieve token from server - wait for completion
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (data.token) {
+        setAdminToken(data.token);
+      }
+    } catch (e) {
+      console.warn('Token fetch error', e);
+    }
 
     setIsAdminAuthenticated(true);
     return true;

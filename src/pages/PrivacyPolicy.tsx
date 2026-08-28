@@ -2,17 +2,19 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../hooks/useLanguage';
 
 export const PrivacyPolicy: React.FC = () => {
   const { openContactModal } = useApp();
+  const { t } = useLanguage();
 
   return (
     <div className="pt-28 pb-20 bg-[#FAF9F6] text-[#121316] min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
           <div className="space-y-4">
-            <h1 className="text-4xl sm:text-5xl font-bold text-neutral-900">Privacy Policy & Data Protection Notice</h1>
-            <p className="text-lg text-neutral-600 font-light">Effective Date: 27 August 2026</p>
+            <h1 className="text-4xl sm:text-5xl font-bold text-neutral-900">{t('privacy.title', 'Privacy Policy & Data Protection Notice')}</h1>
+            <p className="text-lg text-neutral-600 font-light">{t('privacy.effectiveDate', 'Effective Date: 27 August 2026')}</p>
           </div>
 
           <div className="prose prose-lg max-w-none text-neutral-700 space-y-8">

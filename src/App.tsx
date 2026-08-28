@@ -36,15 +36,22 @@ import Chatbot from './components/Chatbot';
 
 // GDPR & Privacy
 import { CookieConsent } from './components/CookieConsent';
-import { RiskWarningBanner } from './components/RiskWarningBanner';
 
 const AppContent: React.FC = () => {
-  const { currentPage } = useApp();
+  const { currentPage, isAdminAuthenticated, setCurrentPage } = useApp();
 
   // Scroll to top on page transition
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
+
+  // Protect editor route - redirect to home if not authenticated
+  // Admin page shows login form internally, so it doesn't need route protection
+  useEffect(() => {
+    if (currentPage === 'editor' && !isAdminAuthenticated) {
+      setCurrentPage('home');
+    }
+  }, [currentPage, isAdminAuthenticated, setCurrentPage]);
 
   const renderCurrentView = () => {
     switch (currentPage) {
@@ -101,9 +108,6 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] font-['Plus_Jakarta_Sans',sans-serif] text-[#121316] flex flex-col justify-between selection:bg-neutral-900 selection:text-white">
-      {/* Risk Warning Banner */}
-      <RiskWarningBanner />
-
       {/* Scroll Progress Indicator & Back-to-Top Ring */}
       <ScrollProgress />
 

@@ -176,16 +176,6 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Disclaimer Bar */}
-        <div className="py-6 px-4 sm:px-6 my-8 rounded-lg bg-amber-950/30 border border-amber-700/50">
-          <p className="text-xs text-amber-100 leading-relaxed">
-            <strong>⚠️ Disclaimer:</strong> This website provides information and documentation for advisory and informational purposes only.
-            Projects presented involve significant risks including potential loss of capital.
-            Before any decision, consult complete documentation and seek independent professional advice.
-            This site does not constitute investment solicitation or public offering of securities.
-          </p>
-        </div>
-
         {/* Bottom Bar: Copyright & Back to top */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 font-light">
           <div>© 2026 JUSTMEBEN LTD. All Rights Reserved. Incorporated in England & Wales (Company No. 15780010).</div>

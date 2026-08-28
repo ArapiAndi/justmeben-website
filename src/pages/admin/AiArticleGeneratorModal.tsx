@@ -48,11 +48,12 @@ export const AiArticleGeneratorModal: React.FC<AiModalProps> = ({
   const handleFetchAiSuggestions = async () => {
     setIsFetchingSuggestions(true);
     try {
+      const tokenFromStorage = localStorage.getItem('siwa_capital_admin_token_v1') || adminToken;
       const res = await fetch('/api/suggest-topics', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(adminToken && { 'Authorization': `Bearer ${adminToken}` }),
+          ...(tokenFromStorage && { 'Authorization': `Bearer ${tokenFromStorage}` }),
         },
         body: JSON.stringify({ category, count: 5 }),
       });
@@ -85,11 +86,13 @@ export const AiArticleGeneratorModal: React.FC<AiModalProps> = ({
         setGenerationStep('Ottimizzazione SEO, meta tag e selezione dell’immagine di copertina...');
       }, 2500);
 
+      // Get token from localStorage to ensure it's current
+      const tokenFromStorage = localStorage.getItem('siwa_capital_admin_token_v1') || adminToken;
       const response = await fetch('/api/generate-article', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(adminToken && { 'Authorization': `Bearer ${adminToken}` }),
+          ...(tokenFromStorage && { 'Authorization': `Bearer ${tokenFromStorage}` }),
         },
         body: JSON.stringify({
           topic,

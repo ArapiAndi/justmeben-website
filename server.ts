@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import dotenv from "dotenv";
-// import { GoogleGenAI, Type } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
 
@@ -11,6 +11,36 @@ const PORT = 3000;
 const ADMIN_SECRET = process.env.ADMIN_SECRET || 'siwa2025-admin-secret-key';
 
 app.use(express.json({ limit: "10mb" }));
+
+// Security Headers
+app.use((req: Request, res: Response, next: Function) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("X-XSS-Protection", "1; mode=block");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  next();
+});
+
+// Rate Limiting for login attempts
+const loginAttempts = new Map<string, { count: number; timestamp: number }>();
+
+const rateLimitLogin = (req: Request, res: Response, next: Function) => {
+  const ip = req.ip || req.connection.remoteAddress || "unknown";
+  const now = Date.now();
+  const limit = loginAttempts.get(ip);
+
+  if (limit && now - limit.timestamp < 60000) {
+    // Within 1 minute
+    if (limit.count >= 5) {
+      return res.status(429).json({ error: "Too many login attempts. Try again later." });
+    }
+    limit.count++;
+  } else {
+    loginAttempts.set(ip, { count: 1, timestamp: now });
+  }
+
+  next();
+};
 
 // Middleware: Verify admin authentication
 const isAdminAuth = (req: Request, res: Response, next: Function) => {
@@ -51,8 +81,8 @@ app.get("/api/health", (req: Request, res: Response) => {
   });
 });
 
-// API: Admin Login (returns token for AI operations)
-app.post("/api/admin/login", (req: Request, res: Response) => {
+// API: Admin Login (returns token for AI operations) - with Rate Limiting
+app.post("/api/admin/login", rateLimitLogin, (req: Request, res: Response) => {
   const { password } = req.body;
 
   if (!password || typeof password !== 'string') {
@@ -153,7 +183,7 @@ Restituisci la risposta in formato JSON con la seguente struttura:
     if (ai) {
       try {
         const response = await ai.models.generateContent({
-          model: "gemini-3.7-flash",
+          model: "gemini-2.5-flash",
           contents: prompt,
           config: {
             systemInstruction,
@@ -324,7 +354,7 @@ app.post("/api/suggest-topics", isAdminAuth, async (req: Request, res: Response)
     if (ai) {
       try {
         const response = await ai.models.generateContent({
-          model: "gemini-3.7-flash",
+          model: "gemini-2.5-flash",
           contents: `Suggerisci 5 argomenti innovativi e ad alto impatto per il blog di Justmeben LTD, società londinese di Financial & Business Advisory, Real Estate, Crowdfunding, Debito Mezzanino, Private Equity e Capital Raising fondata da Marco Beniamino Brioschi.
 Categoria di riferimento: ${category}.
 Restituisci un JSON con un array 'topics', ciascuno contenente:
@@ -401,7 +431,7 @@ app.post("/api/expand-section", isAdminAuth, async (req: Request, res: Response)
     if (ai) {
       try {
         const response = await ai.models.generateContent({
-          model: "gemini-3.7-flash",
+          model: "gemini-2.5-flash",
           contents: `Sei un redattore finanziario di SIWA Capital.
 Espandi o migliora la seguente sezione di un articolo:
 Titolo Sezione: "${sectionHeading}"
@@ -422,6 +452,106 @@ Restituisci solo il testo Markdown della sezione (2-3 paragrafi o elenchi puntat
     res.json({ expandedText: fallbackExpanded });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+// ===== BLOG CRUD API (Protected) =====
+
+// POST /api/blog/create - Create new article
+app.post("/api/blog/create", isAdminAuth, (req: Request, res: Response) => {
+  try {
+    const { title, slug, content, excerpt, category, tags, status } = req.body;
+
+    // Validation
+    if (!title || !slug || !content) {
+      return res.status(400).json({ error: "Title, slug, and content are required" });
+    }
+
+    if (title.length < 3 || title.length > 200) {
+      return res.status(400).json({ error: "Title must be 3-200 characters" });
+    }
+
+    if (!/^[a-z0-9-]+$/.test(slug)) {
+      return res.status(400).json({ error: "Slug must be lowercase alphanumeric with hyphens" });
+    }
+
+    const validStatuses = ["draft", "published", "scheduled", "archived"];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ error: "Invalid status" });
+    }
+
+    // Return success - actual article creation happens on client
+    res.status(201).json({
+      success: true,
+      message: "Article validation passed. Ready to save.",
+      validated: true,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: "Server error during article creation" });
+  }
+});
+
+// PUT /api/blog/:id/update - Update article
+app.put("/api/blog/:id/update", isAdminAuth, (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { title, slug, content, status } = req.body;
+
+    // Validation
+    if (!id || !id.startsWith("post-")) {
+      return res.status(400).json({ error: "Invalid article ID" });
+    }
+
+    if (title && (title.length < 3 || title.length > 200)) {
+      return res.status(400).json({ error: "Title must be 3-200 characters" });
+    }
+
+    if (slug && !/^[a-z0-9-]+$/.test(slug)) {
+      return res.status(400).json({ error: "Invalid slug format" });
+    }
+
+    if (status && !["draft", "published", "scheduled", "archived"].includes(status)) {
+      return res.status(400).json({ error: "Invalid status" });
+    }
+
+    res.json({
+      success: true,
+      message: "Article update validation passed.",
+      articleId: id,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: "Server error during update" });
+  }
+});
+
+// DELETE /api/blog/:id - Delete article
+app.delete("/api/blog/:id", isAdminAuth, (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    if (!id || !id.startsWith("post-")) {
+      return res.status(400).json({ error: "Invalid article ID" });
+    }
+
+    res.json({
+      success: true,
+      message: "Article deletion authorized.",
+      articleId: id,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: "Server error during deletion" });
+  }
+});
+
+// GET /api/blog/published - Get published articles only (public)
+app.get("/api/blog/published", (req: Request, res: Response) => {
+  try {
+    res.json({
+      message: "Published articles endpoint. Client handles actual article list.",
+      status: "ok",
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: "Server error" });
   }
 });
 

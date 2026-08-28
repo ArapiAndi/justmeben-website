@@ -61,12 +61,20 @@ export const AdminDashboard: React.FC = () => {
   const [newCatDesc, setNewCatDesc] = useState('');
 
   // Handle Login
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const ok = loginAdmin(passwordInput);
-    if (!ok) {
+    setLoginError(false);
+    const ok = await loginAdmin(passwordInput);
+    if (ok) {
+      setPasswordInput(''); // Clear form on success
+    } else {
       setLoginError(true);
     }
+  };
+
+  // Handle Quick Demo Login
+  const handleQuickLogin = async () => {
+    await loginAdmin('siwa2025');
   };
 
   // Quick action: Create blank manual article
@@ -193,7 +201,7 @@ export const AdminDashboard: React.FC = () => {
           <div className="pt-4 border-t border-neutral-100 text-center">
             <button
               type="button"
-              onClick={() => loginAdmin('siwa2025')}
+              onClick={handleQuickLogin}
               className="inline-flex items-center gap-2 text-xs font-medium text-amber-700 bg-amber-50 hover:bg-amber-100 px-4 py-2 rounded-full border border-amber-200 transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5" />

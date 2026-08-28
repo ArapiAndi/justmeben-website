@@ -139,14 +139,22 @@ export const ArticleEditor: React.FC = () => {
   const validateForm = (): Record<string, string> => {
     const errors: Record<string, string> = {};
 
+    // Title validation
     if (!title.trim()) {
       errors.title = 'Titolo obbligatorio';
+    } else if (title.length < 3) {
+      errors.title = 'Titolo deve contenere almeno 3 caratteri';
+    } else if (title.length > 200) {
+      errors.title = 'Titolo non può superare 200 caratteri';
     }
 
+    // Slug validation
     if (!slug.trim()) {
       errors.slug = 'Slug obbligatorio';
     } else if (!/^[a-z0-9-]+$/.test(slug)) {
-      errors.slug = 'Slug contiene caratteri non validi';
+      errors.slug = 'Slug: solo minuscole, numeri e trattini';
+    } else if (slug.length < 3 || slug.length > 100) {
+      errors.slug = 'Slug deve essere 3-100 caratteri';
     } else {
       const duplicateSlug = articles.find((a) => a.id !== article.id && a.slug === slug);
       if (duplicateSlug) {
@@ -154,8 +162,25 @@ export const ArticleEditor: React.FC = () => {
       }
     }
 
+    // Content validation
     if (!content.trim()) {
       errors.content = 'Contenuto obbligatorio';
+    } else if (content.trim().length < 50) {
+      errors.content = 'Contenuto deve avere almeno 50 caratteri';
+    }
+
+    // Excerpt validation
+    if (excerpt && excerpt.length > 300) {
+      errors.excerpt = 'Estratto non può superare 300 caratteri';
+    }
+
+    // Meta validation
+    if (metaTitle && metaTitle.length > 65) {
+      errors.metaTitle = 'Meta title non può superare 65 caratteri';
+    }
+
+    if (metaDescription && metaDescription.length > 165) {
+      errors.metaDescription = 'Meta description non può superare 165 caratteri';
     }
 
     return errors;
