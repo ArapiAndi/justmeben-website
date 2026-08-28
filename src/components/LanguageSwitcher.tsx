@@ -10,6 +10,8 @@ const languages: { code: Language; label: string; flag: string }[] = [
   { code: 'es', label: 'Español', flag: '🇪🇸' },
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
   { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+  { code: 'he', label: 'עברית', flag: '🇮🇱' },
+  { code: 'pt', label: 'Português', flag: '🇧🇷' },
 ];
 
 export const LanguageSwitcher: React.FC = () => {
