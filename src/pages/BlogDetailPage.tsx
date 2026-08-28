@@ -75,6 +75,59 @@ export const BlogDetailPage: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Helper to render inline markdown (bold, italic, code)
+  const renderInlineMarkdown = (text: string): React.ReactNode => {
+    const parts: (string | React.ReactNode)[] = [];
+    let lastIndex = 0;
+    let hasMatches = false;
+
+    // Pattern for bold (**text**), italic (*text*), and code (`text`)
+    const pattern = /\*\*([^\*]+)\*\*|\*([^\*]+)\*|`([^`]+)`/g;
+    let match;
+
+    while ((match = pattern.exec(text)) !== null) {
+      hasMatches = true;
+      // Add text before the match
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+
+      // Add the formatted element
+      if (match[1]) {
+        // Bold text
+        parts.push(
+          <strong key={`bold-${parts.length}`} className="font-semibold text-neutral-900">
+            {match[1]}
+          </strong>
+        );
+      } else if (match[2]) {
+        // Italic text
+        parts.push(
+          <em key={`italic-${parts.length}`} className="italic text-neutral-800">
+            {match[2]}
+          </em>
+        );
+      } else if (match[3]) {
+        // Code text
+        parts.push(
+          <code key={`code-${parts.length}`} className="bg-neutral-100 px-2 py-1 rounded font-mono text-sm text-neutral-800">
+            {match[3]}
+          </code>
+        );
+      }
+
+      lastIndex = match.index + match[0].length;
+    }
+
+    // Add remaining text
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+
+    // Return array wrapped in fragment if there are matches, otherwise return text
+    return hasMatches ? parts : text;
+  };
+
   // Helper to render basic structured Markdown with typography
   const renderMarkdownContent = (content: string) => {
     const paragraphs = content.split('\n\n');
@@ -92,7 +145,7 @@ export const BlogDetailPage: React.FC = () => {
             id={anchorId}
             className="text-2xl sm:text-3xl font-normal text-neutral-900 tracking-tight mt-10 mb-4 pt-4 border-t border-neutral-100 scroll-mt-28"
           >
-            {title}
+            {renderInlineMarkdown(title)}
           </h2>
         );
       }
@@ -100,7 +153,7 @@ export const BlogDetailPage: React.FC = () => {
       if (trimmed.startsWith('### ')) {
         return (
           <h3 key={idx} className="text-xl font-medium text-neutral-900 mt-6 mb-3">
-            {trimmed.replace('### ', '')}
+            {renderInlineMarkdown(trimmed.replace('### ', ''))}
           </h3>
         );
       }
@@ -111,7 +164,7 @@ export const BlogDetailPage: React.FC = () => {
             key={idx}
             className="p-6 rounded-2xl bg-neutral-50 border-l-4 border-neutral-900 text-base sm:text-lg italic text-neutral-800 font-light my-6 shadow-xs"
           >
-            {trimmed.replace('> ', '')}
+            {renderInlineMarkdown(trimmed.replace('> ', ''))}
           </blockquote>
         );
       }
@@ -126,7 +179,7 @@ export const BlogDetailPage: React.FC = () => {
           <ul key={idx} className="space-y-2 my-4 pl-6 list-disc marker:text-neutral-900">
             {items.map((item, i) => (
               <li key={i} className="text-sm sm:text-base text-neutral-700 font-light leading-relaxed">
-                {item.replace(/^[-*]\s+/, '')}
+                {renderInlineMarkdown(item.replace(/^[-*]\s+/, ''))}
               </li>
             ))}
           </ul>
@@ -139,7 +192,7 @@ export const BlogDetailPage: React.FC = () => {
           <ol key={idx} className="space-y-2 my-4 pl-6 list-decimal marker:text-neutral-900 font-light">
             {items.map((item, i) => (
               <li key={i} className="text-sm sm:text-base text-neutral-700 leading-relaxed">
-                {item.replace(/^\d+\.\s+/, '')}
+                {renderInlineMarkdown(item.replace(/^\d+\.\s+/, ''))}
               </li>
             ))}
           </ol>
@@ -148,7 +201,7 @@ export const BlogDetailPage: React.FC = () => {
 
       return (
         <p key={idx} className="text-base sm:text-lg text-neutral-700 font-light leading-relaxed my-4">
-          {trimmed}
+          {renderInlineMarkdown(trimmed)}
         </p>
       );
     });
