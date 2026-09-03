@@ -27,7 +27,7 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
             <div className="space-y-6 max-w-sm">
               <p className="text-sm sm:text-base text-neutral-300 font-light leading-relaxed">
-                Justmeben LTD advises developers, founders, and institutional co-investors in real estate structuring, crowdfunding, and private capital raising.
+                {t('footer.mission')}
               </p>
             </div>
 

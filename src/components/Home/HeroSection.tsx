@@ -184,7 +184,7 @@ export const HeroSection: React.FC = () => {
         className="absolute bottom-8 right-8 sm:right-16 z-20 hidden sm:flex items-center gap-3 px-5 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 hover:text-white hover:border-[#2596be]/60 text-xs font-light tracking-wider transition-all cursor-pointer group"
         onClick={scrollToNext}
       >
-        <span>Explore</span>
+        <span>{t('hero.scrollCTA')}</span>
         <motion.div animate={{ y: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
           <ArrowDown className="w-4 h-4 text-[#2596be]" />
         </motion.div>

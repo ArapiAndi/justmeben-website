@@ -26,13 +26,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const t = (key: string): string => {
     const keys = key.split('.');
-    let value: any = translations[language];
-
-    for (const k of keys) {
-      value = value?.[k];
-    }
-
-    return value || key;
+    const lookup = (lang: Language): any => {
+      let value: any = translations[lang];
+      for (const k of keys) {
+        value = value?.[k];
+      }
+      return value;
+    };
+    // Fall back to English when a key is missing in the selected language
+    const value = lookup(language) ?? lookup('en');
+    return value ?? key;
   };
 
   return (

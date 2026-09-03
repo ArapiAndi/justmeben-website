@@ -14,6 +14,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface FAQItem {
   id: string;
@@ -27,132 +28,30 @@ interface FAQItem {
 
 export const FAQSection: React.FC = () => {
   const { openContactModal } = useApp();
+  const { t } = useLanguage();
+  const tArr = (key: string): string[] => { const v = t(key) as unknown; return Array.isArray(v) ? (v as string[]) : []; };
+  const tOpt = (key: string): string | undefined => { const v = t(key); return v === key ? undefined : v; };
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [expandedId, setExpandedId] = useState<string | null>('faq-1');
 
-  const faqData: FAQItem[] = [
-    {
-      id: 'faq-1',
-      category: 'crowdfunding',
-      categoryLabel: 'Crowdfunding Advisory',
-      badge: 'Core Service',
-      question: 'What types of crowdfunding models does Just Me Ben Ltd advise on?',
-      answer:
-        'We provide comprehensive advisory across all primary crowdfunding models: Equity Crowdfunding (offering shares/equity to vetted investors), Debt & Peer-to-Peer Lending (structured interest-bearing loans), Real Estate Crowdfunding (fractional property development & asset-backed deals), and Reward-Based campaigns for innovative product launches.',
-      keyPoints: [
-        'Equity Crowdfunding: Capital raising in exchange for company equity & shares',
-        'Debt / P2P Lending: Fixed-term loan structures with predetermined yields',
-        'Real Estate Crowdfunding: Structured asset-backed property campaigns',
-        'Regulatory Compliance: Full alignment with FCA (UK) and ECSPR (Europe) standards',
-      ],
-    },
-    {
-      id: 'faq-2',
-      category: 'mezzanine',
-      categoryLabel: 'Mezzanine Finance',
-      badge: 'Capital Stack',
-      question: 'What is mezzanine finance and where does it sit in the capital stack?',
-      answer:
-        'Mezzanine finance is a hybrid capital instrument positioned between senior secured debt and common equity. In the event of default or liquidation, senior debt is paid first, followed by mezzanine capital, and finally equity holders. Because of this subordinated position, mezzanine financing provides higher risk-adjusted yields to investors while allowing sponsors to minimize equity dilution.',
-      keyPoints: [
-        'Subordinated to senior bank loans but senior to preferred and common equity',
-        'Bridges the funding gap when senior lenders cap Loan-to-Value (LTV) at 60-70%',
-        'Preserves equity ownership and upside control for developers and founders',
-        'Flexible coupon structures: cash interest, PIK (Payment-in-Kind), or equity warrants',
-      ],
-    },
-    {
-      id: 'faq-3',
-      category: 'mezzanine',
-      categoryLabel: 'Mezzanine Finance',
-      question: 'When should a business or developer opt for mezzanine finance over pure equity?',
-      answer:
-        'Mezzanine finance is ideal when a project or business has predictable cash flows or strong asset backing, but needs capital beyond standard senior debt limits without giving up significant equity ownership or governance control. It is commonly deployed for real estate developments, leveraged buyouts (LBOs), growth recapitalizations, and strategic acquisitions.',
-      keyPoints: [
-        'Avoids excessive equity dilution during critical expansion phases',
-        'Lower cost of capital compared to issuing expensive common equity',
-        'Non-amortizing or interest-only structures that preserve working capital',
-        'Speed of execution through private credit and specialized syndicates',
-      ],
-    },
-    {
-      id: 'faq-4',
-      category: 'crowdfunding',
-      categoryLabel: 'Crowdfunding Advisory',
-      question: 'How do you prepare a project or startup for a successful crowdfunding campaign?',
-      answer:
-        'Campaign success requires institutional-grade preparation. Our team assists with financial modeling, valuation justification, pitch deck narrative, legal disclosures, escrow setup, and cornerstone investor syndication. We build pre-launch momentum to ensure 30-40% of the target is pledged in the private launch phase before opening to the public.',
-      keyPoints: [
-        'Financial underwriting & realistic valuation setting',
-        'High-converting campaign prospectus and multimedia assets',
-        'Lead investor syndication to establish immediate credibility',
-        'Post-campaign shareholder management and communication protocols',
-      ],
-    },
-    {
-      id: 'faq-5',
-      category: 'real-estate',
-      categoryLabel: 'Real Estate & Underwriting',
-      badge: 'Risk Governance',
-      question: 'What is your multi-stage evaluation process for real estate investment selection?',
-      answer:
-        'We adhere to four core principles: Selection, Structure, Verification, and Ongoing Monitoring. Every project undergoes rigorous technical due diligence (conducted with certified surveyors and architects), legal title checks, financial sensitivity stress-testing (evaluating downside cap rates and exit pricing), and thorough counterparty background verification.',
-      keyPoints: [
-        'Stage 1: Sponsor track record and financial capability audit',
-        'Stage 2: Technical, planning permission, and asset condition review',
-        'Stage 3: Capital stack stress-testing against interest rate fluctuations',
-        'Stage 4: Milestone-based escrow releases and independent monitoring',
-      ],
-    },
-    {
-      id: 'faq-6',
-      category: 'real-estate',
-      categoryLabel: 'Real Estate & Underwriting',
-      question: 'How does real estate crowdfunding combine with institutional private equity?',
-      answer:
-        'Modern real estate crowdfunding is evolving into structured capital ecosystems. Instead of unvetted retail deals, leading platforms now employ private equity-grade underwriting, standardized mezzanine tranches, and institutional governance. This allows individual and family office co-investors to participate alongside institutional sponsors on identical protective terms.',
-      keyPoints: [
-        'First-charge security and asset-backed debentures',
-        'Transparent pre-agreed exit milestones and refinance horizons',
-        'Institutional monitoring and covenant enforcement',
-      ],
-    },
-    {
-      id: 'faq-7',
-      category: 'advisory',
-      categoryLabel: 'Advisory & Process',
-      question: 'Who are Just Me Ben Ltd’s typical clients and strategic partners?',
-      answer:
-        'We advise mid-market real estate developers, fast-growing technology enterprises, family offices, and alternative investment platforms across the UK and Continental Europe. We are active members of the Global Professionals Network and collaborate with top-tier solicitors, chartered surveyors, and FCA-regulated crowdfunding platforms.',
-      keyPoints: [
-        'Property developers seeking mezzanine and gap funding for residential/commercial schemes',
-        'Scale-ups preparing for equity crowdfunding rounds or series A funding',
-        'Family offices exploring structured private credit and capital deployment strategies',
-      ],
-    },
-    {
-      id: 'faq-8',
-      category: 'advisory',
-      categoryLabel: 'Advisory & Process',
-      question: 'How can we initiate a consultation and what is the typical engagement roadmap?',
-      answer:
-        'You can request an initial confidential consultation directly through our website. We begin with a preliminary viability review of your executive summary and financial deck within 48 hours. If there is mutual alignment, we deliver an advisory mandate proposal with a clear project roadmap, timeline, and structured capital strategy.',
-      keyPoints: [
-        'Initial confidential discovery call and documentation review',
-        'Comprehensive capital structuring analysis and platform matching',
-        'Preparation of campaign materials and investor outreach roadmap',
-        'Ongoing transaction advisory from launch to closing',
-      ],
-    },
-  ];
+  const faqCategories: Record<number, FAQItem['category']> = { 1: 'crowdfunding', 2: 'mezzanine', 3: 'mezzanine', 4: 'crowdfunding', 5: 'real-estate', 6: 'real-estate', 7: 'advisory', 8: 'advisory' };
+  const faqData: FAQItem[] = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
+    id: `faq-${n}`,
+    category: faqCategories[n],
+    categoryLabel: t(`faqSection.faq${n}Category`),
+    badge: tOpt(`faqSection.faq${n}Badge`),
+    question: t(`faqSection.faq${n}Question`),
+    answer: t(`faqSection.faq${n}Answer`),
+    keyPoints: tArr(`faqSection.faq${n}KeyPoints`),
+  }));
 
   const categories = [
-    { id: 'all', label: 'All Questions', icon: HelpCircle },
-    { id: 'crowdfunding', label: 'Crowdfunding Advisory', icon: Coins },
-    { id: 'mezzanine', label: 'Mezzanine Finance', icon: Layers },
-    { id: 'real-estate', label: 'Real Estate & Capital Stack', icon: Building2 },
-    { id: 'advisory', label: 'Advisory & Process', icon: Briefcase },
+    { id: 'all', label: t('faqSection.allQuestions'), icon: HelpCircle },
+    { id: 'crowdfunding', label: t('faqSection.tabCrowdfunding'), icon: Coins },
+    { id: 'mezzanine', label: t('faqSection.tabMezzanine'), icon: Layers },
+    { id: 'real-estate', label: t('faqSection.tabRealEstate'), icon: Building2 },
+    { id: 'advisory', label: t('faqSection.tabAdvisory'), icon: Briefcase },
   ];
 
   const filteredFaqs = useMemo(() => {
@@ -169,7 +68,7 @@ export const FAQSection: React.FC = () => {
         );
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, faqData]);
 
   const toggleAccordion = (id: string) => {
     setExpandedId((prev) => (prev === id ? null : id));
@@ -190,7 +89,7 @@ export const FAQSection: React.FC = () => {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#2596be]/10 border border-[#2596be]/25 text-[#155e78] text-xs font-semibold uppercase tracking-wider mb-4"
           >
             <HelpCircle className="w-3.5 h-3.5 text-[#2596be]" />
-            <span>Frequently Asked Questions</span>
+            <span>{t('faqSection.badge')}</span>
           </motion.div>
 
           <motion.h2
@@ -201,7 +100,7 @@ export const FAQSection: React.FC = () => {
             id="faq-heading"
             className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-neutral-900 leading-[1.18] mb-6"
           >
-            Clarity on Crowdfunding, Mezzanine Capital & Advisory
+            {t('faqSection.headline')}
           </motion.h2>
 
           <motion.p
@@ -211,9 +110,7 @@ export const FAQSection: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-base sm:text-lg text-neutral-600 font-light leading-relaxed"
           >
-            Key insights on how Just Me Ben Ltd structures capital, optimizes
-            fundraising campaigns, and bridges the gap between developers,
-            investors, and modern alternative financing markets.
+            {t('faqSection.description')}
           </motion.p>
         </div>
 
@@ -253,7 +150,7 @@ export const FAQSection: React.FC = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search questions or terms..."
+              placeholder={t('faqSection.searchPlaceholder')}
               className="w-full pl-10 pr-4 py-2.5 rounded-full text-xs sm:text-sm bg-neutral-50 border border-neutral-200 text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#2596be]/20 focus:border-[#2596be] transition-all"
             />
             {searchQuery && (
@@ -261,7 +158,7 @@ export const FAQSection: React.FC = () => {
                 onClick={() => setSearchQuery('')}
                 className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-neutral-400 hover:text-neutral-600"
               >
-                Clear
+                {t('faqSection.clearButton')}
               </button>
             )}
           </div>
@@ -346,7 +243,7 @@ export const FAQSection: React.FC = () => {
                             <div className="p-4 sm:p-5 rounded-xl bg-white border border-neutral-200/80 shadow-xs space-y-2.5">
                               <span className="text-xs font-semibold uppercase tracking-wider text-neutral-800 flex items-center gap-1.5">
                                 <ShieldCheck className="w-3.5 h-3.5 text-[#2596be]" />
-                                Key Takeaways & Structure
+                                {t('faqSection.keyTakeaways')}
                               </span>
                               <ul className="space-y-2 text-xs sm:text-sm text-neutral-600">
                                 {faq.keyPoints.map((point, pIdx) => (
@@ -373,10 +270,10 @@ export const FAQSection: React.FC = () => {
           <div className="text-center py-16 px-4 rounded-2xl bg-neutral-50 border border-dashed border-neutral-300">
             <HelpCircle className="w-10 h-10 text-neutral-400 mx-auto mb-3" />
             <h4 className="text-base font-medium text-neutral-800 mb-1">
-              No matching questions found
+              {t('faqSection.noResults')}
             </h4>
             <p className="text-xs sm:text-sm text-neutral-500 max-w-sm mx-auto mb-5">
-              Try adjusting your search terms or select another category tab above.
+              {t('faqSection.noResultsDesc')}
             </p>
             <button
               onClick={() => {
@@ -385,7 +282,7 @@ export const FAQSection: React.FC = () => {
               }}
               className="px-4 py-2 rounded-full bg-[#2596be] text-white text-xs font-medium hover:bg-[#1d7b9c]"
             >
-              Reset Filters
+              {t('faqSection.resetButton')}
             </button>
           </div>
         )}
@@ -402,14 +299,13 @@ export const FAQSection: React.FC = () => {
           <div className="relative z-10 max-w-xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2596be]/20 text-[#a5e1f7] text-xs font-semibold backdrop-blur-sm mb-3">
               <Sparkles className="w-3.5 h-3.5 text-[#2596be]" />
-              <span>Tailored Advisory</span>
+              <span>{t('faqSection.ctaBadge')}</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-light text-white tracking-tight leading-snug mb-3">
-              Have a specific project or capital structure question?
+              {t('faqSection.ctaHeading')}
             </h3>
             <p className="text-xs sm:text-sm text-white/80 font-light leading-relaxed">
-              Our team provides confidential, tailored assessments for property
-              developers, business founders, and institutional co-investors.
+              {t('faqSection.ctaDesc')}
             </p>
           </div>
 
@@ -419,7 +315,7 @@ export const FAQSection: React.FC = () => {
               onClick={openContactModal}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-[#2596be] text-white text-sm font-semibold hover:bg-[#1d7b9c] transition-all shadow-lg hover:shadow-xl hover:shadow-[#2596be]/30 cursor-pointer"
             >
-              <span>Schedule a Consultation</span>
+              <span>{t('faqSection.ctaButton')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

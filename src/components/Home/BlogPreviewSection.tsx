@@ -1,10 +1,12 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { motion } from 'motion/react';
 import { ArrowRight, Clock, Eye, Sparkles, BookOpen } from 'lucide-react';
 
 export const BlogPreviewSection: React.FC = () => {
   const { articles, navigateToArticle, setCurrentPage } = useApp();
+  const { t } = useLanguage();
 
   const publishedArticles = articles
     .filter((a) => a.status === 'published')
@@ -26,10 +28,10 @@ export const BlogPreviewSection: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#155e78] px-3 py-1.5 rounded-full bg-[#2596be]/8 border border-[#2596be]/20 mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2596be]" />
-              <span>Research & Insights</span>
+              <span>{t('blog.badge')}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-neutral-900 leading-[1.15]">
-              Real Estate, Crowdfunding & Alternative Finance
+              {t('blog.headline')}
             </h2>
           </div>
 
@@ -43,7 +45,7 @@ export const BlogPreviewSection: React.FC = () => {
             }}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-neutral-900 text-white text-xs sm:text-sm font-medium hover:bg-neutral-800 transition-all cursor-pointer self-start sm:self-auto shadow-md"
           >
-            <span>All Articles & Reports</span>
+            <span>{t('blog.viewAllBtn')}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </motion.button>
         </motion.div>
@@ -132,9 +134,8 @@ export const BlogPreviewSection: React.FC = () => {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: idx * 0.15 + 0.25 }}
-                className="px-7 py-5 flex items-center justify-between border-t border-neutral-100 text-xs text-neutral-700 font-medium group-hover:text-[#2596be] transition-colors"
+                className="px-7 py-5 flex items-center justify-end border-t border-neutral-100 text-xs text-neutral-700 font-medium group-hover:text-[#2596be] transition-colors"
               >
-                <span className="text-neutral-500 group-hover:text-neutral-700">{article.author.name}</span>
                 <motion.span
                   className="inline-flex items-center gap-2 text-[#2596be] font-semibold"
                   whileHover={{ x: 3 }}

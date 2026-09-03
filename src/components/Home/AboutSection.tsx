@@ -112,7 +112,7 @@ export const AboutSection: React.FC = () => {
               id="about-headline"
               className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-neutral-900 leading-[1.18]"
             >
-              Strategic Planning & Financial Excellence
+              {t('about.headline')}
             </h2>
 
             <p className="text-base sm:text-lg text-neutral-600 font-light leading-relaxed">
@@ -129,7 +129,7 @@ export const AboutSection: React.FC = () => {
                 }}
                 className="inline-flex items-center gap-2 text-sm sm:text-base font-semibold text-[#2596be] border-b-2 border-[#2596be]/40 pb-0.5 hover:text-[#175d77] hover:border-[#175d77] transition-all group cursor-pointer"
               >
-                <span>More on Our Advisory Approach</span>
+                <span>{t('about.linkText')}</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </motion.button>
             </div>

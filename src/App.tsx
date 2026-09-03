@@ -102,7 +102,6 @@ const AppContent: React.FC = () => {
           <main>
             <HeroSection />
             <AboutSection />
-            <PortfolioShowcase />
             <StrengthsSection />
             <BlogPreviewSection />
             <FAQSection />

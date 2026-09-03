@@ -1,11 +1,13 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { TEAM_MEMBERS } from '../data/initialData';
-import { ArrowRight, Shield, Target, Compass, Award, CheckCircle, Linkedin } from 'lucide-react';
+import { ArrowRight, Shield, Target, Compass, Linkedin } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const AboutPage: React.FC = () => {
-  const { openContactModal, setCurrentPage } = useApp();
+  const { openContactModal } = useApp();
+  const { t } = useLanguage();
 
   return (
     <div className="pt-28 pb-20 bg-[#FAF9F6] text-[#121316] min-h-screen">
@@ -18,13 +20,13 @@ export const AboutPage: React.FC = () => {
           className="max-w-3xl space-y-4"
         >
           <span className="text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium">
-            About Justmeben LTD
+            {t('aboutPage.eyebrow')}
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal text-neutral-900 tracking-tight leading-[1.12]">
-            Strategic Capital Solutions in Real Estate, Crowdfunding & Private Equity
+            {t('aboutPage.headline')}
           </h1>
           <p className="text-base sm:text-lg text-neutral-600 font-light leading-relaxed pt-2">
-            Justmeben LTD is a London-based financial advisory and capital structuring practice led by Marco Beniamino Brioschi. We bridge property developers, ambitious entrepreneurs, and alternative capital providers through customized mezzanine finance, crowdfunding campaign structuring, and private equity syndication.
+            {t('aboutPage.intro')}
           </p>
         </motion.div>
       </div>
@@ -41,10 +43,10 @@ export const AboutPage: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
           <div className="absolute bottom-8 left-8 sm:left-12 right-8 text-white max-w-xl">
             <span className="text-xs uppercase tracking-widest text-cyan-300 font-semibold mb-1 block">
-              Institutional Underwriting
+              {t('aboutPage.heroLabel')}
             </span>
             <h3 className="text-2xl sm:text-3xl font-light leading-snug">
-              Bespoke capital architectures designed to unlock liquidity, minimize equity dilution, and accelerate execution.
+              {t('aboutPage.heroHeading')}
             </h3>
           </div>
         </div>
@@ -54,10 +56,10 @@ export const AboutPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mb-28">
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <span className="text-xs uppercase tracking-widest text-neutral-500 font-medium">
-            Our Core Methodology
+            {t('aboutPage.methodologyLabel')}
           </span>
           <h2 className="text-3xl sm:text-4xl font-normal text-neutral-900 tracking-tight">
-            How We Structure & Advise Transactions
+            {t('aboutPage.methodologyHeading')}
           </h2>
         </div>
 
@@ -66,9 +68,9 @@ export const AboutPage: React.FC = () => {
             <div className="w-12 h-12 rounded-2xl bg-neutral-900 text-white flex items-center justify-center">
               <Compass className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-medium text-neutral-900">Crowdfunding Campaign Advisory</h3>
+            <h3 className="text-xl font-medium text-neutral-900">{t('aboutPage.pillar1Title')}</h3>
             <p className="text-sm text-neutral-600 font-light leading-relaxed">
-              Full lifecycle guidance for equity and debt crowdfunding campaigns, spanning valuation modeling, FCA/ECSPR regulatory compliance, cornerstone investor syndication, and post-campaign investor relations.
+              {t('aboutPage.pillar1Desc')}
             </p>
           </div>
 
@@ -76,9 +78,9 @@ export const AboutPage: React.FC = () => {
             <div className="w-12 h-12 rounded-2xl bg-[#3D312A] text-white flex items-center justify-center">
               <Shield className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-medium text-neutral-900">Real Estate & Mezzanine Structuring</h3>
+            <h3 className="text-xl font-medium text-neutral-900">{t('aboutPage.pillar2Title')}</h3>
             <p className="text-sm text-neutral-600 font-light leading-relaxed">
-              Layering subordinated mezzanine debt and private credit to bridge the funding gap (up to 80-85% LTC), reducing developer equity dilution while preserving project upside.
+              {t('aboutPage.pillar2Desc')}
             </p>
           </div>
 
@@ -86,9 +88,9 @@ export const AboutPage: React.FC = () => {
             <div className="w-12 h-12 rounded-2xl bg-[#2A4354] text-white flex items-center justify-center">
               <Target className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-medium text-neutral-900">Private Equity & Venture Syndication</h3>
+            <h3 className="text-xl font-medium text-neutral-900">{t('aboutPage.pillar3Title')}</h3>
             <p className="text-sm text-neutral-600 font-light leading-relaxed">
-              Structuring Special Purpose Vehicles (SPVs) and club deals that connect family offices and institutional co-investors with vetted, high-yield off-market opportunities.
+              {t('aboutPage.pillar3Desc')}
             </p>
           </div>
         </div>
@@ -99,17 +101,17 @@ export const AboutPage: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
           <div>
             <span className="text-xs uppercase tracking-widest text-neutral-500 font-medium">
-              Leadership
+              {t('aboutPage.leadershipLabel')}
             </span>
             <h2 className="text-3xl sm:text-4xl font-normal text-neutral-900 tracking-tight mt-1">
-              Advisory Leadership & Managing Partners
+              {t('aboutPage.leadershipHeading')}
             </h2>
           </div>
           <button
             onClick={openContactModal}
             className="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 hover:text-neutral-600 transition-colors"
           >
-            <span>Connect with our Advisory Team</span>
+            <span>{t('aboutPage.leadershipCTA')}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
@@ -168,17 +170,17 @@ export const AboutPage: React.FC = () => {
         <div className="rounded-3xl bg-black text-white p-8 sm:p-14 flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="space-y-2 max-w-xl text-center md:text-left">
             <h3 className="text-2xl sm:text-3xl font-normal">
-              Exploring an Opportunity or Looking for Capital Advisory?
+              {t('aboutPage.ctaHeading')}
             </h3>
             <p className="text-xs sm:text-sm text-neutral-400 font-light leading-relaxed">
-              We review property development proposals, mezzanine debt requests, and crowdfunding mandates with discretion and speed.
+              {t('aboutPage.ctaDesc')}
             </p>
           </div>
           <button
             onClick={openContactModal}
             className="px-6 py-3.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors shadow-lg cursor-pointer whitespace-nowrap"
           >
-            Request Advisory Consultation
+            {t('aboutPage.ctaButton')}
           </button>
         </div>
       </div>
